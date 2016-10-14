@@ -6,25 +6,41 @@ import cgi
 import datetime
 import MySQLdb as mdb
 
+def create_database():
+    conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
+    cursor = conn.cursor()
+    cursor.execute('DROP TABLE IF EXISTS csc210')
+    cursor.execute('CREATE TABLE IF NOT EXISTS csc210(username varchar(30) primary key, password varchar(30),'
+              'salt varchar(100), fName varchar(50), lName varchar(50), email varchar(100),dob date,'
+              'gender char(1), favGame varchar(100)')
+
+    conn.commit()
+    conn.close()
+
+	
 def checkifexists(username):
 	conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
 	cursor = conn.cursor()
-	cursor.execute('SELECT * FROM account WHERE username=%s', [username])
+	cursor.execute('SELECT * FROM csc210 WHERE username=%s', [username])
 	results = cursor.fetchall()
 	conn.close()
 	if len(results)>0:
-	 return True
+		return True
 	else:
-	 return False
+		return False
+
 
 def insert_user(username,password,firstname,lastname,email,dob,gender,game):
 	conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
 	c = conn.cursor()
-	c.execute("INSERT INTO account VALUES(%s,%s,%s,%s,%s,%s,%s,%s);",[username,password,firstname,lastname,email,dob,gender,game])
+	c.execute("INSERT INTO csc210 VALUES(%s,%s,%s,%s,%s,%s,%s,%s);",[username,password,firstname,lastname,email,dob,gender,game])
 	
 	conn.commit()
 	conn.close()
 
+	
+create_database()
+	
 cgitb.enable()
 
 create_user = cgi.FieldStorage()
@@ -36,6 +52,7 @@ print '''<html>
 
 username = create_user['username'].value
 password = create_user['password'].value
+pwdc = create_user['passwordC'].value
 firstname = create_user['fName'].value
 lastname = create_user['lName'].value
 email = create_user['email'].value
@@ -46,8 +63,12 @@ game = create_user['game'].value
 if checkifexists(username):
 	print '<h1> Username: ' + username + ' already exists! </h1>'
 else:
-	insert_user(username,password,firstname,lastname,email,dob,gender,game)
-	print '<h1> User account created </h1>'
+	if password == pwdc:
+		insert_user(username,password,firstname,lastname,email,dob,gender,game)
+		print '<h1> User account created </h1>'
+        else:
+                print '<h1> Your passwords don\'t match </h1>'
+
 print '''
     </body>
 </html>'''
