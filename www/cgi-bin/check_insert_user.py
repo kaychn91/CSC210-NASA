@@ -9,10 +9,7 @@ import MySQLdb as mdb
 def create_database():
     conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
     cursor = conn.cursor()
-    cursor.execute('CREATE TABLE IF NOT EXISTS csc210(username varchar(30) primary key, password varchar(30),'
-              'fName varchar(50), lName varchar(50), email varchar(100),dob date,'
-              'gender char(1), favGame varchar(100)')
-
+    cursor.execute("CREATE TABLE IF NOT EXISTS csc210.Accounts(username varchar(30) primary key, password varchar(30),fName varchar(50), lName varchar(50), email varchar(100),dob date,gender char(1), favGame varchar(100)) ENGINE = InnoDB;") 
     conn.commit()
     conn.close()
 
@@ -20,7 +17,7 @@ def create_database():
 def checkifexists(username):
 	conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
 	cursor = conn.cursor()
-	cursor.execute('SELECT * FROM csc210 WHERE username=%s', [username])
+	cursor.execute('SELECT * FROM Accounts WHERE username=%s', [username])
 	results = cursor.fetchall()
 	conn.close()
 	if len(results)>0:
@@ -32,7 +29,7 @@ def checkifexists(username):
 def insert_user(username,password,firstname,lastname,email,dob,gender,game):
 	conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
 	c = conn.cursor()
-	c.execute("INSERT INTO csc210 VALUES(%s,%s,%s,%s,%s,%s,%s,%s);",[username,password,firstname,lastname,email,dob,gender,game])
+	c.execute("INSERT INTO Accounts VALUES(%s,%s,%s,%s,%s,%s,%s,%s);",[username,password,firstname,lastname,email,dob,gender,game])
 	
 	conn.commit()
 	conn.close()
