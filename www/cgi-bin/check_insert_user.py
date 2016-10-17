@@ -4,12 +4,13 @@
 import cgitb
 import cgi
 import datetime
+import hashlib
 import MySQLdb as mdb
 
 def create_database():
     conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
     cursor = conn.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS csc210.Accounts(username varchar(30) primary key, password varchar(30),fName varchar(50), lName varchar(50), email varchar(100),dob date,gender char(1), favGame varchar(100)) ENGINE = InnoDB;") 
+    cursor.execute("CREATE TABLE IF NOT EXISTS csc210.Accounts(username varchar(30) primary key, password varchar(30), salt varchar(100), fName varchar(50), lName varchar(50), email varchar(100),dob date,gender char(1), favGame varchar(100)) ENGINE = InnoDB;") 
     conn.commit()
     conn.close()
 
@@ -29,7 +30,14 @@ def checkifexists(username):
 def insert_user(username,password,firstname,lastname,email,dob,gender,game):
 	conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
 	c = conn.cursor()
-	c.execute("INSERT INTO Accounts VALUES(%s,%s,%s,%s,%s,%s,%s,%s);",[username,password,firstname,lastname,email,dob,gender,game])
+	
+	salt = str(datetime.datetime.now())
+        hasher = hashlib.sha256()
+        hasher.update(password)
+        hasher.update(salt)
+        encrypted = hasher.hexdigest()
+	
+	c.execute("INSERT INTO Accounts VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s);",[username,encrypted,salt,firstname,lastname,email,dob,gender,game])
 	
 	conn.commit()
 	conn.close()
