@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <title> NASA - Gaming Content </title> 
-      <h1>Create an Account</h1>
+    <title> NASA - Gaming Content </title>
+    <h1>Create an Account</h1>
   </head>
   <body>
     <form method="get" action="/cgi-bin/check_insert_user.py">
-        Username: <input type="text" id="username" name="username"/><BR>
-        Password: <input type="password" id="password" name="password"/><BR>
-        Confirm Password: <input type="password" id="passwordC" name="passwordC"/><BR>
-        First Name: <input type="text" id="fName" name="fName"/><BR>
-        Last Name: <input type="text" id="lName" name="lName"/><BR>
-        E-Mail: <input type="text" id="email" name="email"/><BR>
-        Date of Birth: <input type="date" id="dob" name="dob"/><BR>
+        Username: <input type="text" id="username" name="username" required/><BR>
+        Password: <input type="password" id="password" name="password" required/><BR>
+        Confirm Password: <input type="password" id="passwordC" name="passwordC" required/><BR>
+        First Name: <input type="text" id="fName" name="fName" required/><BR>
+        Last Name: <input type="text" id="lName" name="lName" required/><BR>
+        E-Mail: <input type="text" id="email" name="email" required/><BR>
+        Date of Birth: <input type="date" id="dob" name="dob" required/><BR>
         Gender: <input type="radio" name="gender" value="male"/>Male
         <input type="radio" name="gender" value="female"/>Female
-        <input type="radio" name="gender" value="other"/>Other<BR>
+        <input type="radio" name="gender" value="other" required/>Other<BR>
         Favorite Game: <input type="text" id="game" name="game"/><BR>
 
       <button type="submit" id="create">Create Account</button>
