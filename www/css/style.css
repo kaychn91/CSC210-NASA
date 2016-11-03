@@ -1,4 +1,21 @@
 
+body {
+    font-family: sans-serif;
+}
+
+h1 {
+    font-size: 25px;
+}
+
+aside {
+    float: right;
+}
+
+.main_content {
+    float: left;
+    display: inline-block;
+}
+
 /* Sign In*/
 
 .sign-in
