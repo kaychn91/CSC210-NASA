@@ -10,7 +10,7 @@ import MySQLdb as mdb
 def create_database():
     conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
     cursor = conn.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS csc210.Accounts(username varchar(30) primary key, password varchar(30), salt varchar(100), fName varchar(50), lName varchar(50), email varchar(100),dob date,gender char(1), favGame varchar(100)) ENGINE = InnoDB;") 
+    cursor.execute("CREATE TABLE IF NOT EXISTS csc210.Accounts(username varchar(30) primary key, password varchar(100), salt varchar(100), fName varchar(50), lName varchar(50), email varchar(100),dob date,gender char(1), favGame varchar(100)) ENGINE = InnoDB;") 
     conn.commit()
     conn.close()
 
