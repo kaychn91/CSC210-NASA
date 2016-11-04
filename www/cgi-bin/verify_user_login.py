@@ -7,6 +7,7 @@ import datetime
 import json
 import hashlib
 import MySQLdb as mdb
+import sys
 
 	
 def verifylogin(username, password):
@@ -36,16 +37,18 @@ verify_user = cgi.FieldStorage()
 username = verify_user['username'].value
 password = verify_user['password'].value
 result= {}
-print 'Content-Type: text/html'
-print
-print '''<html>
-	<body>'''
+
+sys.stdout.write("Content-Type: application/json")
+
+sys.stdout.write("\n")
+sys.stdout.write("\n")
 
 if verifylogin(username,password):
 	result['result']= True
-	json.dumps(result)
-
 else:
 	result['result'] = False
-	json.dumps('result')
-	
+
+sys.stdout.write(json.dumps(result, indent=1))
+sys.stdout.write("\n")
+
+sys.stdout.close()

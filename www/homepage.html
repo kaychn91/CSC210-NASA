@@ -61,14 +61,20 @@
 							$.ajax({
 								url: "/cgi-bin/verify_user_login.py",
 								data: {username: user, password: $("#password").val() },
-								datatype: "json",
+								datatype: "application/json",
 								type: "get",
 								success: function(response){
+									if(response.result){
 									var expires = new Date();
 									expires.setTime(expires.getTime() + (30*24*60*60*1000));
 									document.cookie = "username=" + user+"; expires= "+expires.toUTCString();
 									loggedin=getCookie();
 									hide_sign_in();
+									}
+									else
+									{
+										alert("Wrong Username/password")
+									}
 								},
 								error: function(response){
 									alert("error");

@@ -3,9 +3,46 @@
   <head>
     <title> NASA - Gaming Content </title>
     <h1>Create an Account</h1>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			password = $("#password").val();
+			passwordc = $("#passwordC").val();
+			$("#create").click(function(){
+				
+				if(password==passwordc)
+				{
+					var dat={ }
+					$.ajax({
+						url: "/cgi-bin/check_insert_user.py",
+						data: {username: $("#username").val(), password:$("#password").val(), fName: $("#fName").val(), lName: $("#lName").val(), email: $("#email").val(), dob: $("#dob").val(), gender: $("input[name='gender']:checked").val(), game: $("#game").val()},
+						datatype:"application/json",
+						type:"post",
+						success: function(response){
+						if(response.result)
+						{
+							alert("User Already exists")
+						}
+						else
+						{
+							window.location.href = "/homepage.html";
+						}
+						},
+						error: function(response){
+							alert("unknown error");
+						}
+					});
+				}
+				else
+				{
+					alert("passwords do not match");
+				}
+			});
+		});
+	</script>
   </head>
   <body>
-    <form method="get" action="/cgi-bin/check_insert_user.py">
         Username: <input type="text" id="username" name="username" required/><BR>
         Password: <input type="password" id="password" name="password" required/><BR>
         Confirm Password: <input type="password" id="passwordC" name="passwordC" required/><BR>
@@ -18,7 +55,6 @@
         <input type="radio" name="gender" value="other" required/>Other<BR>
         Favorite Game: <input type="text" id="game" name="game"/><BR>
 
-      <button type="submit" id="create">Create Account</button>
-    </form>
+      <button type="button" id="create">Create Account</button>
   </body>
 </html>
