@@ -2,8 +2,91 @@
 	<head>
 		<title> NASA - Gaming Site </title>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<script type="text/javascript" src="script.js"> </script>
+		<!-- <script type="text/javascript" src="script.js"> -->
+			
+		<!-- </script> -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script>
 		
+			$(document).ready(function(){
+				var loggedin = "";
+				function getCookie() {
+					var cks = document.cookie.split(';');
+					var n = 0;
+					var uname="";
+					for(var i = 0;i<cks.length;i++)
+					{
+						n = cks[i].search("username=")
+						if(n!=-1){
+						var x = cks[i].split("username=")
+						uname = x[1];
+						break;
+						}
+					}
+					if(n == -1)
+						return "";
+					else
+					{
+						return uname;
+					}
+				}
+				loggedin = getCookie();
+				function hide_sign_out()
+				{
+					$(".SignOut").hide();
+					$(".SignIn").show();
+					$("#TAComment").prop('disabled',true);
+					$("#submitcomment").prop('disabled',true)
+				}
+				function hide_sign_in()
+				{
+					$(".SignIn").hide();
+					$("#userid").text(loggedin);
+					$(".SignOut").show();
+					$("#TAComment").prop('disabled',false);
+					$("#submitcomment").prop('disabled',false)
+				}
+				if(loggedin == "")
+				{
+					hide_sign_out();
+				}
+				else
+				{
+					hide_sign_in();
+				}
+				$("#sign_in").click(function (){
+						var user = $("#username").val();
+						if( user !="" && $("#password").val() != "")
+						{
+							$.ajax({
+								url: "/cgi-bin/verify_user_login.py",
+								data: {username: user, password: $("#password").val() },
+								datatype: "json",
+								type: "get",
+								success: function(response){
+									var expires = new Date();
+									expires.setTime(expires.getTime() + (30*24*60*60*1000));
+									document.cookie = "username=" + user+"; expires= "+expires.toUTCString();
+									loggedin=getCookie();
+									hide_sign_in();
+								},
+								error: function(response){
+									alert("error");
+								}
+							});
+						}
+						else
+						{
+							alert("Enter Username/password");
+						}	
+					});
+				$("#sign_out").click(function (){
+					document.cookie= "username=; expires = Thu, 01 Jan 1970 00:00:00 UTC";
+					loggedin = getCookie();
+					hide_sign_out();
+				});
+			});
+		</script>
 	</head>
 
 
@@ -12,14 +95,17 @@
 		<header>
 			<img src="images/logo2.png" alt="logo" height="125" width="275">
 		</header>
-
 		<ul class="sign-in">
 			<li class = "SignIn">
-				<form method="get" action="/cgi-bin/login.py">
-       					Username: <input type="text" id="user" required/><BR>
-       					Password: <input type="password" id="pass" required/><BR>
-        				<button type="submit" id="sign_in">Sign In</button> &nbsp &nbsp No account? &nbsp<a href="createaccount.html">Sign Up</a>
-    				</form>					
+				<!-- <form method="get" action="/cgi-bin/verify_user_login.py"> -->
+       					<p>Username: <input type="text" name="username" id="username" required/><BR></p>
+       					<p>Password: <input type="password" id="password" name="password" required/><BR></p>
+        				<button type="button" id="sign_in">Sign In</button> &nbsp &nbsp No account? &nbsp<a href="createaccount.html">Sign Up</a>
+    				<!-- </form>					 -->
+			</li>
+			<li class = "SignOut">
+				<p>Welcome, <a id="userid" /></p><BR>
+				<button type="button" id="sign_out">Sign Out</button>
 			</li>
 		</ul>
 		
@@ -70,8 +156,10 @@
 			</li>
 			<li class = "Other"><a href = '#'> Other </a></li>
 		</ul>
+		
 		<br>
 		<br />
+
 		<div class="main_content">
 		<h1> League of Legends World Championship Comes to a Close </h1>
 		<img src="images/lcs.jpg" alt="LCSWorldChampionship2016" height="250px" width="400px" align="left">
@@ -82,18 +170,15 @@
 
 		</p>
 		</div>
+		
+		<div class="DivComment">
 
-		<aside>
-			<p> testing
-				asldfjalwekjw
-				alskfjalwejflawej
-				alefjalweijawje
-				aleifjalweijoawjefoiawheofjaoweifhaw
-				aeflihaoweijfiawejf
-				aeifjaowiejfoajwe
-				awleijfaweij
-				awoeijfoawije
-			</p>
-		</aside>
+			Comment Section
+			<br>
+			<textarea id="TAComment" rows="4" cols="50" disabled="true">
+			</textarea>
+			<input type="button" id="submitcomment" value="Submit" disabled=true"/>
+		</div>
 	</body>
 </html>
+
