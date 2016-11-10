@@ -28,6 +28,15 @@ aside {
     list-style: none;
 }
 
+/* iframe */
+
+iframe{
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: 100%;
+    height: 100%;
+}
 
 /* Menu Styles */
 
