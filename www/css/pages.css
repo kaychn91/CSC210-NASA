@@ -1,0 +1,12 @@
+.headerIMG {
+	width: 95%;
+	height: 300px;
+	padding-bottom: 50px;
+}
+
+.subIMG img {
+	display: inline-block;
+	height: 200px;
+	width: 250px;
+	padding-right: 20px;
+}
