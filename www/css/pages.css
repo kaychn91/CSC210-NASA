@@ -4,9 +4,15 @@
 	padding-bottom: 50px;
 }
 
-.subIMG img {
-	display: inline-block;
+.subIMG figure img{
+	display: block;
 	height: 200px;
 	width: 250px;
+	margin: auto;
 	padding-right: 20px;
+	border: solid 2px;
+	border-color: black;
+}
+figcaption{
+	text-align: center;
 }
