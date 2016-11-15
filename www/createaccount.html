@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title> NASA - Gaming Content </title>
-    <h1>Create an Account</h1>
+    <link rel="stylesheet" type="text/css" href="CA.css" media="screen" />
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script>
@@ -43,18 +43,23 @@
 	</script>
   </head>
   <body>
-        Username: <input type="text" id="username" name="username" required/><BR>
-        Password: <input type="password" id="password" name="password" required/><BR>
-        Confirm Password: <input type="password" id="passwordC" name="passwordC" required/><BR>
-        First Name: <input type="text" id="fName" name="fName" required/><BR>
-        Last Name: <input type="text" id="lName" name="lName" required/><BR>
-        E-Mail: <input type="text" id="email" name="email" required/><BR>
-        Date of Birth: <input type="date" id="dob" name="dob" required/><BR>
+  		<div class="form">
+  		<h1>Create an Account</h1>
+
+        Username: <input type="text" id="username" name="username" required/><BR><BR>
+        Password: <input type="password" id="password" name="password" required/><BR><BR>
+        Confirm Password: <input type="password" id="passwordC" name="passwordC" required/><BR><BR>
+        First Name: <input type="text" id="fName" name="fName" required/><BR><BR>
+        Last Name: <input type="text" id="lName" name="lName" required/><BR><BR>
+        E-Mail: <input type="text" id="email" name="email" required/><BR><BR>
+        Date of Birth: <input type="date" id="dob" name="dob" required/><BR><BR>
         Gender: <input type="radio" name="gender" value="male"/>Male
         <input type="radio" name="gender" value="female"/>Female
-        <input type="radio" name="gender" value="other" required/>Other<BR>
-        Favorite Game: <input type="text" id="game" name="game"/><BR>
+        <input type="radio" name="gender" value="other" required/>Other<BR><BR>
+        Favorite Game: <input type="text" id="game" name="game"/><BR><BR>
 
-      <button type="button" id="create">Create Account</button>
+      <button type="button" id="create">Create Account</button><BR><BR>
+
+  		</div>
   </body>
 </html>
