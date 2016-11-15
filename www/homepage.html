@@ -154,8 +154,11 @@
 				var parent = $(e.target).parent().parent().attr('class');
 				if(parent.indexOf("level-menu")>0)
 					sessionStorage.navlink = $(e.target).attr('href');
-				});
+				});				
 			});
+			function resizeIframe(iframe) {
+				iframe.height = iframe.contentWindow.document.body.scrollHeight + "px";
+			}
 		</script>
 	</head>
 
@@ -231,7 +234,7 @@
 		
 		<br>
 		<br />
-		<iframe id="contentpage" name='content' src=home_articles.html></iframe>
+		<iframe onload="resizeIframe(this)" id="contentpage" name='content' src=home_articles.html></iframe>
 		<div class="DivComment">
 
 			Comment Section
