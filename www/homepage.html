@@ -9,6 +9,7 @@
 		<script>
 		
 			$(document).ready(function(){
+				$("#contentpage").prop('src',sessionStorage.navlink);
 				var loggedin = "";
 				function getCookie() {
 					var cks = document.cookie.split(';');
@@ -69,6 +70,7 @@
 									expires.setTime(expires.getTime() + (30*24*60*60*1000));
 									document.cookie = "username=" + user+"; expires= "+expires.toUTCString();
 									loggedin=getCookie();
+									sessionStorage.username = user;
 									hide_sign_in();
 									}
 									else
@@ -90,6 +92,68 @@
 					document.cookie= "username=; expires = Thu, 01 Jan 1970 00:00:00 UTC";
 					loggedin = getCookie();
 					hide_sign_out();
+				});
+				
+				//insert comment
+				$("#submitcomment").click(function () {
+					var user = sessionStorage.username;
+					var commenttext = $("#TAComment").val().trim();
+					if(commenttext!="")
+					{
+						$.ajax({
+							url: "/cgi-bin/CommentData.py",
+							data: {username: user, articleID: 1, fnc: 'submitcomment', comment_text: commenttext},
+							datatype: "application/json",
+							type: "get",
+							success: function(response){
+								//show comments
+								show_comments();
+								$("#TAComment").val("");
+							},
+							error: function(response){
+								alert("error in inserting comments");
+							}
+						});
+					}
+					else
+					{
+						alert("Text area cannot be blank");
+					}
+				});
+				//show comments
+				function show_comments(){
+				$("#comments_area").html("");
+					var username ="";
+					var comment_text = "";
+					var commentid = 0;
+					$.ajax({
+						url: "cgi-bin/CommentData.py",
+						data:{fnc: 'GetComments', articleID: 1},
+						datatype: "application/json",
+						type: "get",
+						success: function(response){
+							//displays commentss
+							$.each(response.result, function(index, value) {
+								username = value[0];
+								commentid = value[1];
+								comment_text = value[2];
+								if(username!="")
+								{
+									var comments_html = '<br><textarea id="' + commentid + ' rows="4" cols="50" disabled="true" style="resize: none;">'+comment_text+'</textarea><br>'
+									$("#comments_area").append(comments_html);
+								}
+							});
+						},
+						error: function(response){
+							alert("alert getting comments in python scritp")
+						}
+					});
+				}
+				show_comments();
+				$(".top-level-menu").click(function(e) {
+				var parent = $(e.target).parent().parent().attr('class');
+				if(parent.indexOf("level-menu")>0)
+					sessionStorage.navlink = $(e.target).attr('href');
 				});
 			});
 		</script>
@@ -116,7 +180,7 @@
 		</ul>
 		
 		<ul class="top-level-menu">
-			<li class = 'Home'><a class= "active" href="homepage.html"> Home </a></li>
+			<li class = 'Home'><a class= "active" target="content" href="home_articles.html"> Home </a></li>
 			<li class = "PC"><a target='content' href ='pc.html'> PC </a></li>				
 			<li class = "Nintendo"><a target = "content" href='nintendo.html'> Nintendo </a>
 				<ul class="second-level-menu">
@@ -142,6 +206,7 @@
 						</ul> 
 					</li>
 				</ul>
+			</li>
 			<li class = "Sony"><a target='content' href = 'Sony.html'> Sony </a>
 				<ul class="second-level-menu">
 					<li><a target = "content" href='Playstation.html'> PlayStation</a></li>
@@ -160,21 +225,23 @@
 					<li><a target = "content" href='xbox1.html'> Xbox One</a></li>
 				</ul>
 			</li>
+			<li class = "Other"><a href = '#'> Other </a></li>
 			<li class = "Other"><a target='content' href = 'other.html'> Other </a></li>
 			<li class = "Contribute"><a target='content' href = 'contribute.html'> Contribute </a></li>
 		</ul>
 		
 		<br>
 		<br />
-
-		<iframe name='content' src=home_articles.html></iframe>
-		
+		<iframe id="contentpage" name='content' src=home_articles.html></iframe>
 		<div class="DivComment">
 
 			Comment Section
 			<br>
-			<textarea id="TAComment" rows="4" cols="50" disabled="true">
-			</textarea>
+			<div id="comments_area">
+			</div>
+			<br>
+			<textarea id="TAComment" rows="4" cols="50" disabled="true" style="resize: none;">
+			</textarea><br>
 			<input type="button" id="submitcomment" value="Submit" disabled=true"/>
 		</div>
 	</body>
