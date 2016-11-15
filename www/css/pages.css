@@ -17,3 +17,8 @@
 figcaption{
 	text-align: center;
 }
+
+figure:hover {
+	text-decoration: underline;
+
+}
