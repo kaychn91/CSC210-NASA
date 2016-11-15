@@ -1,0 +1,1 @@
+CREATE TABLE `csc210`.`Articles` ( `ArticleID` INT NOT NULL AUTO_INCREMENT , `username` VARCHAR(30) NOT NULL COMMENT 'related to username from accounts' , `TimeCreated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `ArticleLocation` VARCHAR(100) NOT NULL COMMENT 'Location to the file containing the article.' , PRIMARY KEY (`ArticleID`)) ENGINE = InnoDB;
