@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+	<head>
+		<title> Contribute </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script>
+		
+			$(document).ready(function(){
+                 function getCookie() {                         // would need to create cookie on homepage that has no exp so deleted when session ends
+					var cks = document.cookie.split(';');       // this way if person not select remember me, won't store login & can access cookie here 
+					var n = 0;                                  // to check if user is logged in before being able to contibute
+					var uname="";
+					for(var i = 0;i<cks.length;i++)
+					{
+						n = cks[i].search("u=")
+						if(n!=-1){
+						var x = cks[i].split("u=")
+						uname = x[1];
+						break;
+						}
+					}
+					if(n == -1)
+						return "";
+					else
+					{
+						return uname;
+					}
+                 }
+
+                 loggedin = getCookie();
+
+				 
+
+			if($('#nintendo').not(':checked')) { 
+			   $(".nintendobuttons").hide();
+			}
+			if($('#sony').not(':checked')) { 
+			   $(".sonybuttons").hide();
+			}
+			if($('#microsoft').not(':checked')) { 
+			   $(".microsoftbuttons").hide();
+			}
+			$('input[name=platform]').click(function() {
+   				if($('#nintendo').is(':checked')) { 
+					   $(".nintendobuttons").show();
+				} else {
+					   $(".nintendobuttons").hide();
+				}
+				if($('#sony').is(':checked')) { 
+					   $(".sonybuttons").show();
+				} else {
+					   $(".sonybuttons").hide();
+				}
+				if($('#microsoft').is(':checked')) { 
+					   $(".microsoftbuttons").show();
+				} else {
+					   $(".microsoftbuttons").hide();
+				}
+
+			});
+
+
+            });
+        </script>
+    </head>
+	<body>
+        <div class="contibution">
+			<h3> What would you like to contribute to? </h3>
+        	<strong>Platform</strong><br>
+        	<input type="radio" name="platform" value="pc"/>PC<br>
+        	<input type="radio" name="platform" value="nintendo" id="nintendo"/>Nintendo<br>
+        	<input type="radio" name="platform" value="sony" id="sony"/>Sony<br>
+        	<input type="radio" name="platform" value="microsoft" id="microsoft"/>Microsoft<br>
+        	<input type="radio" name="platform" value="other" required/>Other<br>
+			<br>
+			
+			<div class = "nintendobuttons">
+				<strong>Console</strong><br>
+				<input type="radio" name="n" value="nes"/>NES<br>
+        		<input type="radio" name="n" value="snes" />SNES<br>
+        		<input type="radio" name="n" value="n64" />N64<br>
+        		<input type="radio" name="n" value="gamecube"/>GameCube<br>
+				<input type="radio" name="n" value="wii" />Wii<br>
+        		<input type="radio" name="n" value="wiiu" />WiiU<br>
+				<input type="radio" name="n" value="gaw"/>Game and Watch<br>
+        		<input type="radio" name="n" value="gb" />Game Boy<br>
+        		<input type="radio" name="n" value="vb" />Virtual Boy<br>
+        		<input type="radio" name="n" value="gbc"/>Game Boy Color<br>
+				<input type="radio" name="n" value="gba" />Game Boy Advance<br>
+        		<input type="radio" name="n" value="ds" />Nintendo DS<br>
+        		<input type="radio" name="n" value="3ds" />Nintendo 3DS<br>
+			</div>
+
+			<div class = "sonybuttons">
+				<strong>Console</strong><br>
+				<input type="radio" name="s" value="ps"/>Playstation<br>
+        		<input type="radio" name="s" value="ps2" />Playstation 2<br>
+        		<input type="radio" name="s" value="ps3" />Playstation 3<br>
+        		<input type="radio" name="s" value="ps4"/>Playstation 4<br>
+				<input type="radio" name="s" value="psp" />Playstation Portable<br>
+        		<input type="radio" name="s" value="pstv" />Playstation TV<br>
+				<input type="radio" name="s" value="psvita"/>Playstation Vita<br>
+			</div>
+
+			<div class = "microsoftbuttons">
+				<strong>Console</strong><br>
+				<input type="radio" name="m" value="xbox"/>Xbox<br>
+        		<input type="radio" name="m" value="xbox360" />Xbox 360<br>
+        		<input type="radio" name="m" value="xbox1" />Xbox One<br>
+			</div>
+
+			<br>
+
+			<div class = "contibution">
+				<textarea id="articletext" rows="20" cols="100">
+				</textarea>
+				<input type="button" id="submitcontent" value="Submit"/>
+			</div>
+        </div>
+
+	</body>
+
+</html>
