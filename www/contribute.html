@@ -6,30 +6,6 @@
 		<script>
 		
 			$(document).ready(function(){
-                 function getCookie() {                         // would need to create cookie on homepage that has no exp so deleted when session ends
-					var cks = document.cookie.split(';');       // this way if person not select remember me, won't store login & can access cookie here 
-					var n = 0;                                  // to check if user is logged in before being able to contibute
-					var uname="";
-					for(var i = 0;i<cks.length;i++)
-					{
-						n = cks[i].search("u=")
-						if(n!=-1){
-						var x = cks[i].split("u=")
-						uname = x[1];
-						break;
-						}
-					}
-					if(n == -1)
-						return "";
-					else
-					{
-						return uname;
-					}
-                 }
-
-                 loggedin = getCookie();
-
-				 
 
 			if($('#nintendo').not(':checked')) { 
 			   $(".nintendobuttons").hide();
@@ -58,7 +34,31 @@
 				}
 
 			});
-
+			//add article
+				$("#submitcontent").click(function () {
+					var user = sessionStorage.username;
+					var text = $("#articletext").val().trim();
+					var title = $("#articletitle").val().trim();
+					if(text!="")
+					{
+						$.ajax({
+							url: "/cgi-bin/ArticleData.py",
+							data: {username: user, fnc: 'submitarticle', atext: text, atitle: title},
+							datatype: "application/json",
+							type: "post",
+							success: function(response){
+								alert("article submitted");
+							},
+							error: function(response){
+								alert("error while adding article");
+							}
+						});
+					}
+					else
+					{
+						alert("Text area cannot be blank");
+					}
+				});
 
             });
         </script>
@@ -112,7 +112,7 @@
 			<br>
 
 			<div class = "contibution">
-				Title <input type="text" id="title" name="title" required/><br>
+				Title <input type="text" id="articletitle" required/><br>
 				<textarea id="articletext" rows="20" cols="100">
 				</textarea>
 				<input type="button" id="submitcontent" value="Submit"/>
