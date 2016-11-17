@@ -66,12 +66,14 @@
 								type: "get",
 								success: function(response){
 									if(response.result){
-									var expires = new Date();
-									expires.setTime(expires.getTime() + (30*24*60*60*1000));
-									document.cookie = "username=" + user+"; expires= "+expires.toUTCString();
-									loggedin=getCookie();
-									sessionStorage.username = user;
-									hide_sign_in();
+										if($("#rememberme").prop("checked")){
+											var expires = new Date();
+											expires.setTime(expires.getTime() + (30*24*60*60*1000));
+											document.cookie = "username=" + user+"; expires= "+expires.toUTCString();
+											loggedin=getCookie();
+										}										
+										sessionStorage.username = user;
+										hide_sign_in();
 									}
 									else
 									{
@@ -157,7 +159,7 @@
 				});				
 			});
 			function resizeIframe(iframe) {
-				iframe.height = iframe.contentWindow.document.body.scrollHeight + "px";
+				iframe.height = $('#contentpage').contents().find("html").height() + "px";
 			}
 		</script>
 	</head>
@@ -173,6 +175,7 @@
 				<!-- <form method="get" action="/cgi-bin/verify_user_login.py"> -->
        					<p>Username: <input type="text" name="username" id="username" required/><BR></p>
        					<p>Password: <input type="password" id="password" name="password" required/><BR></p>
+						Remember me<input type="checkbox" id="rememberme">
         				<button type="button" id="sign_in">Sign In</button> &nbsp &nbsp No account? &nbsp<a href="createaccount.html">Sign Up</a>
     				<!-- </form>					 -->
 			</li>
