@@ -36,31 +36,52 @@
 			});
 			//add article
 				$("#submitcontent").click(function () {
+					var platform = $("input[name=platform]:checked").val();
+					var console = $("input[name=c]:checked").val();
+					if(console == undefined){
+						console = "";
+					}
 					var user = sessionStorage.username;
-					var text = $("#articletext").val().trim();
-					var title = $("#articletitle").val().trim();
-					if(text!="")
+					if(user!="" && user!= null && user!= undefined)
 					{
-						$.ajax({
-							url: "/cgi-bin/ArticleData.py",
-							data: {username: user, fnc: 'submitarticle', atext: text, atitle: title},
-							datatype: "application/json",
-							type: "post",
-							success: function(response){
-								alert("article submitted");
-							},
-							error: function(response){
-								alert("error while adding article");
-							}
-						});
+						var text = $("#articletext").val().trim();
+						var title = $("#articletitle").val().trim();						
+						
+						if(text!="")
+						{
+							$.ajax({
+								url: "/cgi-bin/ArticleData.py",
+								data: {username: user, fnc: 'submitarticle', atext: text, atitle: title, platform: platform, console: console},
+								datatype: "application/json",
+								type: "post",
+								success: function(response){
+									alert("article submitted");
+								},
+								error: function(response){
+									alert("error while adding article");
+								}
+							});
+						}
+						else
+						{
+							alert("Text area cannot be blank");
+						}
 					}
 					else
 					{
-						alert("Text area cannot be blank");
+						alert("Please login first");
 					}
-				});
-
+				});	
             });
+			function preview_image() 
+			{
+				$("#image_preview").html("");
+				var total_file=$("#upload_file")[0].files.length;
+				for(var i=0;i<total_file;i++)
+				{
+					$('#image_preview').append("<img style='height:200px;width:200px;' src='"+URL.createObjectURL(event.target.files[i])+"'>");
+				}
+			}
         </script>
     </head>
 	<body>
@@ -76,45 +97,47 @@
 			
 			<div class = "nintendobuttons">
 				<strong>Console</strong><br>
-				<input type="radio" name="n" value="nes"/>NES<br>
-        		<input type="radio" name="n" value="snes" />SNES<br>
-        		<input type="radio" name="n" value="n64" />N64<br>
-        		<input type="radio" name="n" value="gamecube"/>GameCube<br>
-				<input type="radio" name="n" value="wii" />Wii<br>
-        		<input type="radio" name="n" value="wiiu" />WiiU<br>
-				<input type="radio" name="n" value="gaw"/>Game and Watch<br>
-        		<input type="radio" name="n" value="gb" />Game Boy<br>
-        		<input type="radio" name="n" value="vb" />Virtual Boy<br>
-        		<input type="radio" name="n" value="gbc"/>Game Boy Color<br>
-				<input type="radio" name="n" value="gba" />Game Boy Advance<br>
-        		<input type="radio" name="n" value="ds" />Nintendo DS<br>
-        		<input type="radio" name="n" value="3ds" />Nintendo 3DS<br>
+				<input type="radio" name="c" value="nes"/>NES<br>
+        		<input type="radio" name="c" value="snes" />SNES<br>
+        		<input type="radio" name="c" value="n64" />N64<br>
+        		<input type="radio" name="c" value="gamecube"/>GameCube<br>
+				<input type="radio" name="c" value="wii" />Wii<br>
+        		<input type="radio" name="c" value="wiiu" />WiiU<br>
+				<input type="radio" name="c" value="gaw"/>Game and Watch<br>
+        		<input type="radio" name="c" value="gb" />Game Boy<br>
+        		<input type="radio" name="c" value="vb" />Virtual Boy<br>
+        		<input type="radio" name="c" value="gbc"/>Game Boy Color<br>
+				<input type="radio" name="c" value="gba" />Game Boy Advance<br>
+        		<input type="radio" name="c" value="ds" />Nintendo DS<br>
+        		<input type="radio" name="c" value="3ds" />Nintendo 3DS<br>
 			</div>
 
 			<div class = "sonybuttons">
 				<strong>Console</strong><br>
-				<input type="radio" name="s" value="ps"/>Playstation<br>
-        		<input type="radio" name="s" value="ps2" />Playstation 2<br>
-        		<input type="radio" name="s" value="ps3" />Playstation 3<br>
-        		<input type="radio" name="s" value="ps4"/>Playstation 4<br>
-				<input type="radio" name="s" value="psp" />Playstation Portable<br>
-        		<input type="radio" name="s" value="pstv" />Playstation TV<br>
-				<input type="radio" name="s" value="psvita"/>Playstation Vita<br>
+				<input type="radio" name="c" value="ps"/>Playstation<br>
+        		<input type="radio" name="c" value="ps2" />Playstation 2<br>
+        		<input type="radio" name="c" value="ps3" />Playstation 3<br>
+        		<input type="radio" name="c" value="ps4"/>Playstation 4<br>
+				<input type="radio" name="c" value="psp" />Playstation Portable<br>
+        		<input type="radio" name="c" value="pstv" />Playstation TV<br>
+				<input type="radio" name="c" value="psvita"/>Playstation Vita<br>
 			</div>
 
 			<div class = "microsoftbuttons">
 				<strong>Console</strong><br>
-				<input type="radio" name="m" value="xbox"/>Xbox<br>
-        		<input type="radio" name="m" value="xbox360" />Xbox 360<br>
-        		<input type="radio" name="m" value="xbox1" />Xbox One<br>
+				<input type="radio" name="c" value="xbox"/>Xbox<br>
+        		<input type="radio" name="c" value="xbox360" />Xbox 360<br>
+        		<input type="radio" name="c" value="xbox1" />Xbox One<br>
 			</div>
 
 			<br>
 
 			<div class = "contibution">
 				Title <input type="text" id="articletitle" required/><br>
-				<textarea id="articletext" rows="20" cols="100">
-				</textarea>
+				<textarea id="articletext" rows="20" cols="100"></textarea><br>
+				
+				<input type="file" name="pic" id="upload_file" accept="image/*" onchange="preview_image();" multiple><br>
+				<div id="image_preview"></div><br>
 				<input type="button" id="submitcontent" value="Submit"/>
 			</div>
         </div>

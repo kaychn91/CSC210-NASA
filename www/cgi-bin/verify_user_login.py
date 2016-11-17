@@ -13,7 +13,8 @@ import sys
 def verifylogin(username, password):
 	conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
 	cursor = conn.cursor()
-	cursor.execute('SELECT password,salt FROM Accounts WHERE username=%s', [username])
+	cmd = "SELECT password,salt FROM Accounts WHERE username=%s"
+	cursor.execute(cmd, (username,))
 	result = cursor.fetchall()
 	for row in result:
 		encrypted = row[0]

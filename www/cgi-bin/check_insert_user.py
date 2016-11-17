@@ -20,7 +20,8 @@ def create_database():
 def checkifexists(username):
 	conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
 	cursor = conn.cursor()
-	cursor.execute('SELECT * FROM Accounts WHERE username=%s', [username])
+	cmd = "SELECT * FROM Accounts WHERE username=%s"
+	cursor.execute(cmd, (username,))
 	results = cursor.fetchall()
 	conn.close()
 	if len(results)>0:
@@ -40,7 +41,8 @@ def insert_user(username,password,firstname,lastname,email,dob,gender,game):
         hasher.update(salt)
         encpaswd = hasher.hexdigest()
 	
-	c.execute("INSERT INTO Accounts VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s);",[username,encpaswd,currentdate,firstname,lastname,email,dob,gender,game])
+	cmd = "INSERT INTO Accounts VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s);"
+	c.execute(cmd,(username,encpaswd,currentdate,firstname,lastname,email,dob,gender,game))
 	
 	conn.commit()
 	conn.close()

@@ -71,8 +71,12 @@
 											var expires = new Date();
 											expires.setTime(expires.getTime() + (30*24*60*60*1000));
 											document.cookie = "username=" + user+"; expires= "+expires.toUTCString();
-											loggedin=getCookie();
-										}										
+										}
+										else
+										{
+											document.cookie="username="+user+";";
+										}
+										loggedin=getCookie();
 										sessionStorage.username = user;
 										hide_sign_in();
 									}
@@ -246,8 +250,7 @@
 			<div id="comments_area">
 			</div>
 			<br>
-			<textarea id="TAComment" rows="4" cols="50" disabled="true" style="resize: none;">
-			</textarea><br>
+			<textarea id="TAComment" rows="4" cols="50" disabled="true" style="resize: none;"></textarea><br>
 			<input type="button" id="submitcomment" value="Submit" disabled=true"/>
 		</div>
 	</body>
