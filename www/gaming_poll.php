@@ -46,7 +46,7 @@ fclose($fp);
 	<tr>
 		<td>Action:</td>
 		<td>
-			<img src="temp.png"
+			<img src="images/poll.gif"
 				width='<?php echo(100*round($action/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>'
 				height='20'>
 			<?php echo(100*round($action/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>%
@@ -55,7 +55,7 @@ fclose($fp);
 	<tr>
 		<td>Action Adventure:</td>
 		<td>
-			<img src="temp.png"
+			<img src="images/poll.gif"
 			width='<?php echo(100*round($act_adv/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>'
 			height='20'>
 			<?php echo(100*round($act_adv/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>%
@@ -64,7 +64,7 @@ fclose($fp);
 	<tr>
 		<td>Adventure:</td>
 		<td>
-			<img src="temp.png"
+			<img src="images/poll.gif"
 			width='<?php echo(100*round($adv/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>'
 			height='20'>
 			<?php echo(100*round($adv/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>%
@@ -73,7 +73,7 @@ fclose($fp);
 	<tr>
 		<td>Role Playing:</td>
 		<td>
-			<img src="temp.png"
+			<img src="images/poll.gif"
 			width='<?php echo(100*round($role_play/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>'
 			height='20'>
 			<?php echo(100*round($role_play/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>%
@@ -82,7 +82,7 @@ fclose($fp);
 	<tr>
 		<td>Simulator:</td>
 		<td>
-			<img src="temp.png"
+			<img src="images/poll.gif"
 			width='<?php echo(100*round($sim/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>'
 			height='20'>
 			<?php echo(100*round($sim/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>%
@@ -91,7 +91,7 @@ fclose($fp);
 	<tr>
 		<td>Strategy:</td>
 		<td>
-			<img src="temp.png"
+			<img src="images/poll.gif"
 			width='<?php echo(100*round($strategy/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>'
 			height='20'>
 			<?php echo(100*round($strategy/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>%
@@ -100,7 +100,7 @@ fclose($fp);
 	<tr>
 		<td>Sports:</td>
 		<td>
-			<img src="temp.png"
+			<img src="images/poll.gif"
 			width='<?php echo(100*round($sports/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>'
 			height='20'>
 			<?php echo(100*round($sports/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>%
@@ -109,7 +109,7 @@ fclose($fp);
 	<tr>
 		<td>Other:</td>
 		<td>
-			<img src="temp.png"
+			<img src="images/poll.gif"
 			width='<?php echo(100*round($other/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>'
 			height='20'>
 			<?php echo(100*round($other/($action+$act_adv+$adv+$role_play+$sim+$strategy+$sports+$other),2)); ?>%
