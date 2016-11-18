@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>NASA - Poll Test</title>
+
+		<!--script from w3school.com-->
+		<!--Currently for radio buttons only-->
+		<script>
+		function getVote(int) {
+		  if (window.XMLHttpRequest) {
+		    // code for IE7+, Firefox, Chrome, Opera, Safari
+		    xmlhttp=new XMLHttpRequest();
+		  } else {  // code for IE6, IE5
+		    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		  xmlhttp.onreadystatechange=function() {
+		    if (this.readyState==4 && this.status==200) {	
+		      document.getElementById("poll").innerHTML=this.responseText;
+		    }
+		  }
+		  // Edit this line before testing!!!
+		  xmlhttp.open("GET","gaming_poll.php?vote="+int,true);
+		  xmlhttp.send();
+		}
+		</script>
+
+	</head>
+
+	<body>
+
+		<h1>NASA - Poll Test (work in progress)</h1>
+
+			<fieldset>
+				
+				<legend>Participate in our online poll!</legend>
+
+				<div id="poll">
+
+					<h2>What's your favorite video game genre?</h2>
+					<form>
+						<table>
+							<tr>
+								<td>
+									<input type="radio" name="genre" id="action-select" value="0" onclick="getVote(this.value)">
+								</td>
+								<td>Action</td>
+							</tr>
+							<tr>
+								<td>	
+									<input type="radio" name="genre" id="actAdv-select" value="1" onclick="getVote(this.value)">
+								</td>
+								<td>Action-Adventure</td>
+							</tr>
+							<tr>
+								<td>	
+									<input type="radio" name="genre" id="adv-select" value="2" onclick="getVote(this.value)">
+								</td>
+								<td>Adventure</td>
+							</tr>
+							<tr>
+								<td>	
+									<input type="radio" name="genre" id="rplay-select" value="3" onclick="getVote(this.value)">
+								</td>
+								<td>Role-Playing</td>
+							</tr>
+							<tr>
+								<td>	
+									<input type="radio" name="genre" id="sim-select" value="4" onclick="getVote(this.value)">
+								</td>
+								<td>Simulator</td>
+							</tr>
+							<tr>
+								<td>	
+									<input type="radio" name="genre" id="strategy-select" value="5" onclick="getVote(this.value)">
+								</td>
+								<td>Strategy</td>
+							</tr>
+							<tr>
+								<td>	
+									<input type="radio" name="genre" id="sport-select" value="6" onclick="getVote(this.value)">
+								</td>
+								<td>Sports</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="radio" name="genre" id="other-select" value="7" onclick="getVote(this.value)">
+								</td>
+								<td>Ohter</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				
+				<!--checkbox poll for recent games-->
+				<form method="POST" action="test_poll.php">
+
+					<h2>What games are you really excieted for?</h2>
+						<input type="checkbox" name="newGame1" id="pkmon-check" value="pokemon">
+						<label for="pkmon-check">Pokémon Sun/Moon <a href="https://www.amazon.com/gp/product/B01C93CWSI/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01C93CWSI&linkCode=as2&tag=metacritic04-20&th=1"></a></label><button>Buy From Amazon</button>
+						<br><br>
+
+						<input type="checkbox" name="newGame2" id="aCreed-check" value="assassinsCreed">
+						<label for="aCreed-check">Assassin's Creed: The Ezio Collection <a href="https://www.amazon.com/gp/product/B01LXHDC8I/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01LXHDC8I&linkCode=as2&tag=metacritic04-20"></a></label><button>Buy From Amazon</button>
+						<br><br>
+
+						<input type="checkbox" name="newGame3" id="wd2-check" value="watchdog2">
+						<label for="wd2-check">Watch_Dogs 2 <a href="https://www.amazon.com/gp/product/B01GKF7T9S/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01GKF7T9S&linkCode=as2&tag=metacritic04-20"></a></label><button>Buy From Amazon</button> 
+						<br><br>
+
+						<input type="checkbox" name="newGame4" id="deadRise-check" value="deadRise">
+						<label for="deadRise-check">Dead Rising 4 <a href="https://www.amazon.com/gp/product/B01GW3LR8M/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01GW3LR8M&linkCode=as2&tag=metacritic04-20"></a></label><button>Buy From Amazon</button> 
+						<br><br>
+
+						<input type="checkbox" name="newGame5" id="lastG-check" value="lastG">
+						<label for="lastG-check">The Last Guardian <a href="https://www.amazon.com/dp/B00ZQBLNP4%3FSubscriptionId%3DAKIAJHSMUOWEQCQ7QDAQ%26tag%3Dmetacritic-games-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00ZQBLNP4"></a></label><button>Buy From Amazon</button>
+						<br><br>
+
+						<input type="checkbox" name="newGame6" id="darkside-check" value="darkside">
+						<label for="darkside-check">Darksiders: Warmastered Edition <a href="https://www.amazon.com/gp/product/B01JCUVEDA/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01JCUVEDA&linkCode=as2&tag=metacritic08-20"></a></label><button>Buy From Amazon</button> 
+						<br><br>
+
+						<input type="checkbox" name="newGame7" id="finfan15-check" value="finfan15">
+						<label for="finfan15-check">Final Fantasy XV <a href="https://www.amazon.com/gp/product/B00DBF829C/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00DBF829C&linkCode=as2&tag=metacritic04-20"></a></label><button>Buy From Amazon</button> 
+						<br><br>
+
+						<input type="checkbox" name="newGame8" id="sGate-check" value="sGate">
+						<label for="sGate-check">Steins;Gate 0 <a href="https://www.amazon.com/gp/product/B01JHQURAU/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01JHQURAU&linkCode=as2&tag=metacritic04-20"></a></label><button>Buy From Amazon</button>
+						<br><br>
+
+						<input type="checkbox" name="newGame9" id="steep-check" value="steep">
+						<label for="steep-check">Steep <a href="https://www.amazon.com/gp/product/B01GWLIYUI/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01GWLIYUI&linkCode=as2&tag=metacritic04-20&th=1"></a></label><button>Buy From Amazon</button>
+						<br><br>
+
+						<input type="checkbox" name="newGame10" id="smm-check" value="smm">
+						<label for="smm-check">Super Mario Maker <a href="https://www.amazon.com/gp/product/B01LDUYU60/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01LDUYU60&linkCode=as2&tag=metacritic04-20"></a></label><button>Buy From Amazon</button>
+						<br><br>
+
+					<input type="submit" value="Submit">
+
+				</form>
+
+			</fieldset>
+
+</html>
