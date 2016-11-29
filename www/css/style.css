@@ -8,6 +8,7 @@ body {
     background-repeat: no-repeat;
      padding: 0;
     margin: 0;
+   
 
 }
 
@@ -55,6 +56,7 @@ iframe{
     border: none;
     width: 100%;
     background: white;
+
 }
 
 /* Menu Styles */
@@ -153,6 +155,8 @@ footer {
     background: #333;
     color: white;
     padding: 10px;
+   width: 100%;
+   margin-bottom: 0;
 }
 
 
