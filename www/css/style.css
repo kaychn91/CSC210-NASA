@@ -63,7 +63,7 @@ iframe{
     position: absolute;
     top: 30px;
     left: 0;
-    width: 175px;
+    width: 100%;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -83,6 +83,8 @@ iframe{
     list-style: none;
     padding: 0;
     margin: 0;
+    width: 100%;
+
 }
 
 .top-level-menu > li
@@ -90,8 +92,11 @@ iframe{
     position: relative;
     float: left;
     height: 30px;
-    width: 175;
+    width: 14.28%;
     background: #333;
+    text-align: center;
+  
+
 }
 .top-level-menu > li:hover { background: #CCCCCC; }
 
