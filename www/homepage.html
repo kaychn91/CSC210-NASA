@@ -174,7 +174,7 @@
 
 		<header>
 			<img src="images/logo2.png" alt="logo" height="125" width="275">
-		</header>
+		
 		<ul class="sign-in">
 			<li class = "SignIn">
 				<!-- <form method="get" action="/cgi-bin/verify_user_login.py"> -->
@@ -189,7 +189,8 @@
 				<button type="button" id="sign_out">Sign Out</button>
 			</li>
 		</ul>
-		
+		</header>
+		<nav>
 		<ul class="top-level-menu">
 			<li class = 'Home'><a class= "active" target="content" href="home_articles.html"> Home </a></li>
 			<li class = "PC"><a target='content' href ='pc.html'> PC </a></li>				
@@ -239,10 +240,17 @@
 			<li class = "Other"><a target='content' href = 'other.html'> Other </a></li>
 			<li class = "Contribute"><a target='content' href = 'contribute.html'> Contribute </a></li>
 		</ul>
+	</nav>
 		
 		<br>
 		<br />
-		<iframe onload="resizeIframe(this)" id="contentpage" name='content' src=home_articles.html></iframe>
+		<br />
+		
+	<div class="main">
+		<iframe align="middle" onload="resizeIframe(this)" id="contentpage" name='content' src=home_articles.html></iframe>
+	
+	<br />
+		<br />
 		<div class="DivComment">
 
 			Comment Section
@@ -251,8 +259,18 @@
 			</div>
 			<br>
 			<textarea id="TAComment" rows="4" cols="50" disabled="true" style="resize: none;"></textarea><br>
-			<input type="button" id="submitcomment" value="Submit" disabled=true"/>
+			<input type="button" id="submitcomment" value="Submit" disabled="true"/>
 		</div>
+		</div>
+		<footer>
+			<p> NASA 2016 </p>
+			<p> Nishanth Krishnamurthy </br>
+				Annie He</br>
+				Sam Bahr</br>
+				Anthony Russel </p>
+
+		</footer>
+	
 	</body>
 </html>
 
