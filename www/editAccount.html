@@ -2,6 +2,7 @@
 <html lang="en">
 	<head>
 		<title> Account Editor </title>
+        <link rel="stylesheet" type="text/css" href="css/EA.css" media="screen" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	    <script>
 		    $(document).ready(function(){
@@ -96,6 +97,7 @@
 
     </head>
     <body>
+        <div class="form">
         <h2> Edit Account </h2>
         Username: <input type="text" id="username" value=" " name="username" disabled="true" required/><BR><BR>
         Password: <input type="password" id="password" value=" " name="password" required/><BR><BR>
@@ -110,7 +112,7 @@
         Favorite Game: <input type="text" id="game" value=" " name="game"/><BR><BR>
 
         <button type="button" id="change">Submit Changes</button><BR><BR>
-        <button style="color:red;" type="button" id="delete">Delete Account</button>
-
+        <button style="color:red;" type="button" id="delete">Delete Account</button><BR><BR>
+        </div>
     </body>
 </html>
