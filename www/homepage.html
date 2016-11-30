@@ -146,7 +146,7 @@
 								comment_text = value[2];
 								if(username!="")
 								{
-									var comments_html = '<br><textarea id="' + commentid + ' rows="4" cols="50" disabled="true" style="resize: none;">'+comment_text+'</textarea><br>'
+									var comments_html = '<br>'+username+':<br><textarea id="' + commentid + ' rows="10" cols="50" disabled="true" style="resize: none;">'+comment_text+'</textarea><br>'
 									$("#comments_area").append(comments_html);
 								}
 							});
@@ -253,7 +253,7 @@
 		<br />
 		<div class="DivComment">
 
-			Comment Section
+			<b>Comment Section</b>
 			<br>
 			<div id="comments_area">
 			</div>
