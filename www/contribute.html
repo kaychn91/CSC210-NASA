@@ -38,11 +38,8 @@
 				$("#submitcontent").click(function () {
 					var platform = $("input[name=platform]:checked").val();
 					var console = $("input[name=c]:checked").val();
-					if(platform == "other"){
-						console = "other";
-					}
-					if(platform == "pc"){
-						console = "pc";
+					if(console == undefined || platform == "pc" || platform == "other"){
+						console = " ";
 					}
 					var user = sessionStorage.username;
 					if(user!="" && user!= null && user!= undefined)
@@ -58,8 +55,7 @@
 								datatype: "application/json",
 								type: "post",
 								success: function(response){
-									$('#articletitle').val("");
-									$('#articletext').val("");
+									uploadimages();
 								},
 								error: function(response){
 									alert("error while adding article");
@@ -77,6 +73,34 @@
 					}
 				});	
             });
+			function uploadimages()
+			{
+				var formdata = new FormData();
+				var total_file=$("#upload_file")[0].files.length;
+				formdata.append("fnc", "upload_image");
+				for(var i=0;i<total_file;i++)
+				{
+					formdata.append("file"+i, $("#upload_file")[0].files[i]);
+				}
+				formdata.append("imageno", total_file);
+				$.ajax({
+					url: "/cgi-bin/ArticleData.py",
+					data: formdata,
+					cache: false,
+					contentType: false,
+					processData: false,
+					type: 'POST',
+					success: function(response){
+						alert("article submitted");
+						$("#articletitle").val("");
+						$("#articletext").val("");
+					},
+					error: function(response){
+						alert("error");
+					}
+				});
+				
+			}
 			function preview_image() 
 			{
 				$("#image_preview").html("");
@@ -140,7 +164,7 @@
 				Title <input type="text" id="articletitle" required/><br>
 				<textarea id="articletext" rows="20" cols="100"></textarea><br>
 				
-				<input type="file" name="pic" id="upload_file" accept="image/*" onchange="preview_image();" multiple><br>
+				<input type="file" name="file" id="upload_file" accept="image/*" onchange="preview_image();" multiple><br>
 				<div id="image_preview"></div><br>
 				<input type="button" id="submitcontent" value="Submit"/>
 			</div>
