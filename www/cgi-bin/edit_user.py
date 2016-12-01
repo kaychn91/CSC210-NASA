@@ -10,34 +10,7 @@ import MySQLdb as mdb
 import sys
 
 
-cgitb.enable()
-
-verify_user = cgi.FieldStorage()
-fnc = verify_user['fnc'].value
-username = verify_user['username'].value
-
-result= {}
-
-sys.stdout.write("Content-Type: application/json")
-
-sys.stdout.write("\n")
-sys.stdout.write("\n")
-
-if fnc == 'delete':
-    conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
-    cursor = conn.cursor()
-    cmd= "DELETE FROM Accounts WHERE username=%s"
-    cursor.execute(cmd, (username,))
-    conn.commit()
-    conn.close()
-    result['result'] = True
-elif fnc == 'change':
-    password = verify_user['password'].value
-    firstname = verify_user['fName'].value
-    lastname = verify_user['lName'].value
-    email = verify_user['email'].value
-    gender = verify_user['gender'].value
-    game = verify_user['game'].value
+def change(username,password,firstname,lastname,email,gender,game):
     conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
     cursor = conn.cursor()
     cmd = "SELECT salt FROM Accounts WHERE username=%s"
@@ -61,16 +34,54 @@ elif fnc == 'change':
     cursor.execute(cmd, data)
     conn.commit()
     conn.close()
-    result['result'] = True
-elif fnc == 'getUser':  # doesn't work
+
+def delete(username):
+    conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
+    cursor = conn.cursor()
+    cmd= "DELETE FROM Accounts WHERE username=%s"
+    cursor.execute(cmd, (username,))
+    conn.commit()
+    conn.close()
+
+def getUser(username):
     conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
     c = conn.cursor()
-    cmd = "SELECT password,fName,lName,email,dob,gender,favGame FROM Accounts where username=%s"
+    cmd = "SELECT password,fName,lName,email,dob,gender,favGame FROM Accounts WHERE username=%s" #getting encrypted password
     c.execute(cmd, (username,))
     results = c.fetchall()
     conn.close()
     if len(results)>0:
-        result['result'] = results
+        return results
+    else:
+        return False
+
+cgitb.enable()
+
+verify_user = cgi.FieldStorage()
+fnc = verify_user['fnc'].value
+username = verify_user['username'].value
+
+result= {}
+
+sys.stdout.write("Content-Type: application/json")
+
+sys.stdout.write("\n")
+sys.stdout.write("\n")
+
+if fnc == 'delete':
+    delete(username)
+    result['result'] = True
+elif fnc == 'change':
+    password = verify_user['password'].value
+    firstname = verify_user['fName'].value
+    lastname = verify_user['lName'].value
+    email = verify_user['email'].value
+    gender = verify_user['gender'].value
+    game = verify_user['game'].value
+    change(username,password,firstname,lastname,email,gender,game)
+    result['result'] = True
+elif fnc == 'getUser':  # still doesn't work
+    result['result'] = getUser(username)
 else:
 	pass
 
