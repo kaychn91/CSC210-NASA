@@ -18,7 +18,7 @@ body {
 
 
 header {
-    background: white;
+    background:white;
     padding-left: 5px;
     margin: 0;
     width: 100%;
@@ -40,6 +40,7 @@ aside {
 .main {
     padding: 30px;
     font-family: sans-serif;
+    margin: 15px;
 
 }
 
@@ -48,7 +49,7 @@ aside {
 .sign-in
 {
     position: absolute;
-    padding: 0;
+    padding-top: 5px;
     margin: 0;
     top: 0;
     right: 10;
@@ -76,6 +77,8 @@ iframe{
     background: white;
     border-radius: 3px;
     padding-left: 10px;
+
+    box-shadow: 0px 0px 0px 20px rgba(0,0,0,0.3);  
 
 
 }
@@ -170,6 +173,7 @@ iframe{
 .DivComment {
     background: white;
     padding: 10px;
+    margin-top: 10px;
     border-radius: 3px;
 }
 
