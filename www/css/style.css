@@ -16,6 +16,7 @@ body {
    
 }
 
+
 header {
     background: white;
     padding-left: 5px;
@@ -37,7 +38,7 @@ aside {
 }
 
 .main {
-    padding: 20px;
+    padding: 30px;
     font-family: sans-serif;
 
 }
@@ -73,6 +74,8 @@ iframe{
     border: none;
     width: 100%;
     background: white;
+    border-radius: 3px;
+    padding-left: 10px;
 
 
 }
@@ -167,6 +170,7 @@ iframe{
 .DivComment {
     background: white;
     padding: 10px;
+    border-radius: 3px;
 }
 
 footer {
