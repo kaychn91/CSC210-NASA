@@ -53,7 +53,7 @@ def GetArticle(articleID):
 def fetchArticles(console):
 	conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
 	c = conn.cursor()
-	cmd = "SELECT ArticleID,Title FROM Articles WHERE Console=%s"
+	cmd = "SELECT ArticleID,Title,left(article_text,100) FROM Articles WHERE Console=%s LIMIT 5"
 	c.execute(cmd, (console,))
 	results = c.fetchall()
 	conn.close()
@@ -83,6 +83,9 @@ if fnc == 'submitarticle':
 elif fnc == 'fetch':
 	console = verify_user['console'].value
 	result['result'] = fetchArticles(console)
+elif fnc == 'getarticle':
+	articleID = verify_user['articleID'].value
+	result['result'] = GetArticle(articleID)
 else:
 	imageno = verify_user['imageno'].value
 	for i in range(int(imageno)):
