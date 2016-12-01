@@ -38,8 +38,11 @@
 				$("#submitcontent").click(function () {
 					var platform = $("input[name=platform]:checked").val();
 					var console = $("input[name=c]:checked").val();
-					if(console == undefined){
-						console = "";
+					if(platform == "other"){
+						console = "other";
+					}
+					if(platform == "pc"){
+						console = "pc";
 					}
 					var user = sessionStorage.username;
 					if(user!="" && user!= null && user!= undefined)
@@ -55,7 +58,8 @@
 								datatype: "application/json",
 								type: "post",
 								success: function(response){
-									alert("article submitted");
+									$('#articletitle').val("");
+									$('#articletext').val("");
 								},
 								error: function(response){
 									alert("error while adding article");
