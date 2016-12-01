@@ -5,32 +5,21 @@ import cgitb
 import cgi
 import datetime
 import json
-import hashlib
 import MySQLdb as mdb
 import sys
 
 
-def change(username,password,firstname,lastname,email,gender,game):
+def change(username,firstname,lastname,email,gender,game):
     conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
     cursor = conn.cursor()
-    cmd = "SELECT salt FROM Accounts WHERE username=%s"
-    cursor.execute(cmd, (username,))
-    result = cursor.fetchall()
-    for row in result:
-        salt = row[0]
-        hasher = hashlib.sha256()
-        hasher.update(password)
-        hasher.update(salt)
-        digest = hasher.hexdigest()
     cmd = """UPDATE Accounts
-             SET password = %s,
-                 fName = %s,
+             SET fName = %s,
                  lName = %s,
                  email = %s,
                  gender = %s,
                  favGame = %s
              WHERE username = %s;"""
-    data = (digest, firstname, lastname, email, gender, game, username)
+    data = (firstname, lastname, email, gender, game, username)
     cursor.execute(cmd, data)
     conn.commit()
     conn.close()
@@ -46,7 +35,7 @@ def delete(username):
 def getUser(username):
     conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
     c = conn.cursor()
-    cmd = "SELECT password,fName,lName,email,dob,gender,favGame FROM Accounts WHERE username=%s" #getting encrypted password
+    cmd = "SELECT fName,lName,email,gender,favGame FROM Accounts WHERE username=%s" 
     c.execute(cmd, (username,))
     results = c.fetchall()
     conn.close()
@@ -72,15 +61,14 @@ if fnc == 'delete':
     delete(username)
     result['result'] = True
 elif fnc == 'change':
-    password = verify_user['password'].value
     firstname = verify_user['fName'].value
     lastname = verify_user['lName'].value
     email = verify_user['email'].value
     gender = verify_user['gender'].value
     game = verify_user['game'].value
-    change(username,password,firstname,lastname,email,gender,game)
+    change(username,firstname,lastname,email,gender,game)
     result['result'] = True
-elif fnc == 'getUser':  # still doesn't work
+elif fnc == 'getUser': 
     result['result'] = getUser(username)
 else:
 	pass

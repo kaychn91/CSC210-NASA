@@ -6,59 +6,51 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	    <script>
 		    $(document).ready(function(){
-                $("#username").attr("value", sessionStorage.username);
-                var pswrd = "";
+                $("#user").text(sessionStorage.username);
                 var fn = "";
                 var ln = "";
                 var email = "";
-                var dob = "";
                 var g = "";
                 var game = "";
-               // not working
-               /* function getUserInfo(){
-	       $.ajax({
+                function getUserInfo(){
+                $.ajax({
                     url: "/cgi-bin/edit_user.py",
-                    data: {fnc: 'getUser', username: $("#username").val()},
+                    data: {fnc: 'getUser', username: sessionStorage.username},
 					datatype: "application/json",
 					type: "get",
                     success: function(response){
 							$.each(response.result, function(index, value) {
-								pswrd = value[0];
-                                fn = value[1];
-                                ln = value[2];
-                                email = value[3];
-                                dob = value[4];
-                                g = value[5];
-                                game = value[6];
+                                fn = value[0];
+                                $("#fName").attr("value", fn);
+                                ln = value[1];
+                                $("#lName").attr("value", ln);
+                                email = value[2];
+                                $("#email").attr("value", email);
+                                g = value[3];
+                                if (g == 'f'){
+                                    $('#female').prop('checked', true);
+                                }
+                                if (g == 'm'){
+                                    $('#male').prop('checked', true);
+                                }
+                                if (g == 'o'){
+                                    $('#other').prop('checked', true);
+                                }
+                                game = value[4];
+                                $("#game").attr("value", game);
 							});
                     },
 					error: function(response){
-							alert(error getting user data)
+							alert('error getting user data');
 					}
                 });
-               
-                $("#password").attr("value", pswrd);
-                $("#passwordC").attr("value", pswrd);
-                $("#fName").attr("value", fn);
-                $("#lName").attr("value", ln);
-                $("#email").attr("value", email);
-                $("#dob").attr("value", dob);
-                if (g == 'f'){
-                    $('#female').prop('checked', true);  // change id, based on database retrival
-                }
-                if (g == 'm'){
-                    $('#male').prop('checked', true);
-                }
-                if (g == 'o'){
-                    $('#other').prop('checked', true);
-                }
-                $("#game").attr("value", game);
-		}
-*/
-                $("#delete").click(function(){
+                
+               }
+               getUserInfo();
+               $("#delete").click(function(){
                     $.ajax({
 					    url: "/cgi-bin/edit_user.py",
-                        data: {fnc: 'delete', username: $("#username").val()},
+                        data: {fnc: 'delete', username: sessionStorage.username},
 					    datatype: "application/json",
 					    type: "post",
 					    success: function(response){
@@ -73,25 +65,19 @@
                 });
 
                 $("#change").click(function(){
-                    password = $("#password").val();
-					passwordc = $("#passwordC").val();
-					if(password==passwordc)
-					{
                     $.ajax({
 					    url: "/cgi-bin/edit_user.py",
-                        data: {fnc: 'change', username: $("#username").val(), password:$("#password").val(), fName: $("#fName").val(), lName: $("#lName").val(), email: $("#email").val(), gender: $("input[name='gender']:checked").val(), game: $("#game").val()},
+                        data: {fnc: 'change', username: sessionStorage.username, fName: $("#fName").val(), lName: $("#lName").val(), email: $("#email").val(), gender: $("input[name='gender']:checked").val(), game: $("#game").val()},
 						datatype:"application/json",
 					    type: "post",
-					    success: function(response){  // updates sucessfully but doesn't get proper response
+					    success: function(response){
                             alert("account updated")
-						    window.location.href = "/homepage.html";
+                            window.location.href = "/homepage.html";
+                        },
+                        error: function(response){
+                            alert('unable to update account')
                         }
                     });
-                    }
-					else
-					{
-						alert("passwords do not match");
-					}
                 });
               
             });
@@ -102,13 +88,10 @@
     <body>
         <div class="form">
         <h2> Edit Account </h2>
-        Username: <input type="text" id="username" value=" " name="username" disabled="true" required/><BR><BR>
-        Password: <input type="password" id="password" value=" " name="password" required/><BR><BR>
-        Confirm Password: <input type="password" id="passwordC" value=" " name="passwordC" required/><BR><BR>
+        <h3><a id=user></a><BR><BR>
         First Name: <input type="text" id="fName" value=" " name="fName" required/><BR><BR>
         Last Name: <input type="text" id="lName" value=" " name="lName" required/><BR><BR>
         E-Mail: <input type="stext" id="email" value=" " name="email" required/><BR><BR>
-        Date of Birth: <input type="date" id="dob" value="1111-11-11" name="dob" disabled="true" required/><BR><BR>
         Gender: <input type="radio" id="male" name="gender" value="m"/>Male
         <input type="radio" id="female" name="gender" value="f"/>Female
         <input type="radio" id="other" name="gender" value="o" required/>Other<BR><BR>
