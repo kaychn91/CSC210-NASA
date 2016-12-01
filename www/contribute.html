@@ -38,8 +38,11 @@
 				$("#submitcontent").click(function () {
 					var platform = $("input[name=platform]:checked").val();
 					var console = $("input[name=c]:checked").val();
-					if(console == undefined || platform == "pc" || platform == "other"){
+					if(console == undefined){
 						console = " ";
+					}
+					else if(platform == "pc" || platform == "other"){
+						console = platform;
 					}
 					var user = sessionStorage.username;
 					if(user!="" && user!= null && user!= undefined)
