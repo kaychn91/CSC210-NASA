@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+
 	<head>
 		<title> Account Editor </title>
         <link rel="stylesheet" type="text/css" href="css/EA.css" media="screen" />
@@ -7,7 +7,7 @@
 	    <script>
 		    $(document).ready(function(){
                 $("#username").attr("value", sessionStorage.username);
-                var paswrd = "";
+                var pswrd = "";
                 var fn = "";
                 var ln = "";
                 var email = "";
@@ -15,7 +15,8 @@
                 var g = "";
                 var game = "";
                // not working
-               /* $.ajax({
+               /* function getUserInfo(){
+	       $.ajax({
                     url: "/cgi-bin/edit_user.py",
                     data: {fnc: 'getUser', username: $("#username").val()},
 					datatype: "application/json",
@@ -48,10 +49,11 @@
                 if (g == 'm'){
                     $('#male').prop('checked', true);
                 }
-                if (g == ''){
+                if (g == 'o'){
                     $('#other').prop('checked', true);
                 }
                 $("#game").attr("value", game);
+		}
 */
                 $("#delete").click(function(){
                     $.ajax({
@@ -82,6 +84,7 @@
 					    type: "post",
 					    success: function(response){  // updates sucessfully but doesn't get proper response
                             alert("account updated")
+						    window.location.href = "/homepage.html";
                         }
                     });
                     }
