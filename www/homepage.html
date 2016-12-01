@@ -10,6 +10,7 @@
 		
 			$(document).ready(function(){
 				$("#contentpage").prop('src',sessionStorage.navlink);
+				$("#contentpage").attr('data-console',sessionStorage.contentconsole);
 				var loggedin = "";
 				function getCookie() {
 					var cks = document.cookie.split(';');
@@ -158,13 +159,79 @@
 				}
 				show_comments();
 				$(".top-level-menu").click(function(e) {
-				var parent = $(e.target).parent().parent().attr('class');
-				if(parent.indexOf("level-menu")>0)
-					sessionStorage.navlink = $(e.target).attr('href');
-				});				
+					var parent = $(e.target).parent().parent().attr('class');
+					if(parent.indexOf("level-menu")>0)
+					{
+						sessionStorage.navlink = $(e.target).attr('href');
+						$("#contentpage").prop('src',sessionStorage.navlink);
+					}
+					var datalevel = $(e.target).attr('data-level');
+					var console = $(e.target).attr('data-console');
+					if(datalevel == "final"){
+						$('#contentpage').attr('data-console', console);
+					}
+					else
+					{
+						$('#contentpage').attr('data-console', "");
+					}
+					sessionStorage.contentconsole = $('#contentpage').attr('data-console');
+				});
 			});
 			function resizeIframe(iframe) {
-				iframe.height = $('#contentpage').contents().find("html").height() + "px";
+				var iframehtml = $('#contentpage').contents().find("html");
+				iframe.height = iframehtml.height() + "px";
+			}
+			function fetcharticles(){
+				console = $('#contentpage').attr('data-console');
+				if(console!="")
+				{
+					$.ajax({
+						url: "cgi-bin/ArticleData.py",
+						data: {fnc: "fetch", console: console},
+						datatype: "application/json",
+						type: "get",
+						success: function(response){
+							$('#contentpage').contents().find("body").text("");
+							$.each(response.result, function(index,value) {
+								var articleID = value[0];
+								var  articleTitle = value[1];
+								var articleText = value[2];
+								DisplayAllArticles(articleID,articleTitle,articleText);
+								resizeIframe($('#contentpage')[0]);
+							});
+						},
+						error: function(response){
+							alert("fetch error");
+						}
+					});
+				}
+			}
+			function DisplayAllArticles(articleID,articleTitle,articleText){
+				var iframebody = $('#contentpage').contents().find("body");				
+				iframebody.append("<p style='font-weight:bold'>"+articleTitle+":");
+				iframebody.append(articleText + " <a onclick='parent.ShowArticle("+ articleID + ")'>Read More</a></p>");
+			}
+			function ShowArticle(articleID){
+				$.ajax({
+						url: "cgi-bin/ArticleData.py",
+						data: {fnc: "getarticle", articleID: articleID},
+						datatype: "application/json",
+						type: "get",
+						success: function(response){
+							$('#contentpage').contents().find("body").text("");
+							$.each(response.result, function(index,value) {
+								var articleTitle = value[1];
+								var articleText = value[2];
+								var iframebody = $('#contentpage').contents().find("body");				
+								iframebody.append("<p style='font-weight:bold'>"+articleTitle+"</p>");
+								iframebody.append("<p>"+articleText+"</p>");
+								resizeIframe($("#contentpage")[0]);
+							});
+						},
+						error: function(response){
+							alert("article error");
+						}
+					});
 			}
 		</script>
 	</head>
@@ -192,53 +259,53 @@
 		</header>
 		<nav>
 		<ul class="top-level-menu">
-			<li class = 'Home'><a class= "active" target="content" href="home_articles.html"> Home </a></li>
-			<li class = "PC"><a target='content' href ='pc.html'> PC </a></li>				
-			<li class = "Nintendo"><a target = "content" href='nintendo.html'> Nintendo </a>
+			<li class = 'Home'><a class= "active" target="content" href="home_articles.html" data-console=""> Home </a></li>
+			<li class = "PC"><a target='content' href ='pc.html' data-level="final" data-console="pc"> PC </a></li>				
+			<li class = "Nintendo"><a target = "content" href='nintendo.html' data-console=""> Nintendo </a>
 				<ul class="second-level-menu">
-					<li><a target = "content" href='NhomeConsoles.html'> Home Consoles </a>	
+					<li><a target = "content" href='NhomeConsoles.html' data-console=""> Home Consoles </a>	
 						<ul class="third-level-menu">
-							<li><a target = "content" href='NES.html'> NES </a></li>						
-							<li><a target = "content" href='SNES.html'> SNES </a></li>
-							<li><a target = "content" href='N64.html'> N64 </a></li>
-							<li><a target = "content" href='Gamecube.html'> GameCube </a></li>
-							<li><a target = "content" href='Wii.html'> Wii </a></li>
-							<li><a target = "content" href='WiiU.html'> Wii U </a></li>			
+							<li><a target = "content" href='NES.html' data-level="final" data-console="nes"> NES </a></li>						
+							<li><a target = "content" href='SNES.html' data-level="final" data-console="snes"> SNES </a></li>
+							<li><a target = "content" href='N64.html' data-level="final" data-console="n64"> N64 </a></li>
+							<li><a target = "content" href='Gamecube.html' data-level="final" data-console="gamecube"> GameCube </a></li>
+							<li><a target = "content" href='Wii.html' data-level="final" data-console="wii"> Wii </a></li>
+							<li><a target = "content" href='WiiU.html' data-level="final"data-console="wiiu"> Wii U </a></li>			
 						</ul> 
 					</li>
-					<li><a target = "content" href='NPortableConsoles.html'> Portable Consoles </a>
+					<li><a target = "content" href='NPortableConsoles.html' data-console=""> Portable Consoles </a>
 						<ul class="third-level-menu">
-							<li><a target = "content" href='GameAndWatch.html'> Game and Watch </a></li>
-							<li><a target = "content" href='GameBoy.html'> Game Boy </a></li>
-							<li><a target = "content" href='VirtualBoy.html'> Virtual Boy </a></li>
-							<li><a target = "content" href='GameBoyC.html'> Game Boy Color </a></li>		
-							<li><a target = "content" href='GameBoyA.html'> Game Boy Advance </a></li>
-							<li><a target = "content" href='DS.html'> Nintendo DS </a></li>
-							<li><a target = "content" href='3DS.html'> Nintendo 3DS </a></li>
+							<li><a target = "content" href='GameAndWatch.html' data-level="final" data-console="gaw"> Game and Watch </a></li>
+							<li><a target = "content" href='GameBoy.html' data-level="final" data-console="gb"> Game Boy </a></li>
+							<li><a target = "content" href='VirtualBoy.html' data-level="final" data-console="vb"> Virtual Boy </a></li>
+							<li><a target = "content" href='GameBoyC.html' data-level="final" data-console="gbc"> Game Boy Color </a></li>		
+							<li><a target = "content" href='GameBoyA.html' data-level="final" data-console="gba"> Game Boy Advance </a></li>
+							<li><a target = "content" href='DS.html' data-level="final" data-console="ds"> Nintendo DS </a></li>
+							<li><a target = "content" href='3DS.html' data-level="final" data-console="3ds"> Nintendo 3DS </a></li>
 						</ul> 
 					</li>
 				</ul>
 			</li>
-			<li class = "Sony"><a target='content' href = 'Sony.html'> Sony </a>
+			<li class = "Sony"><a target='content' href = 'Sony.html' data-console=""> Sony </a>
 				<ul class="second-level-menu">
-					<li><a target = "content" href='Playstation.html'> PlayStation</a></li>
-					<li><a target = "content" href='Playstation2.html'> PlayStation 2 </a></li>
-					<li><a target = "content" href='Playstation3.html'> PlayStation 3</a></li>
-					<li><a target = "content" href='Playstation4.html'> PlayStation 4 </a></li>		
-					<li><a target = "content" href='PlaystationP.html'> PlayStation Portable </a></li>
-					<li><a target = "content" href='playstation_tv.html'> PlayStation TV </a></li>
-					<li><a target = "content" href='playstation_vita.html'> PlayStation Vita </a></li>
+					<li><a target = "content" href='Playstation.html' data-level="final" data-console="ps"> PlayStation</a></li>
+					<li><a target = "content" href='Playstation2.html' data-level="final" data-console="ps2"> PlayStation 2 </a></li>
+					<li><a target = "content" href='Playstation3.html' data-level="final" data-console="ps3"> PlayStation 3</a></li>
+					<li><a target = "content" href='Playstation4.html' data-level="final" data-console="ps4"> PlayStation 4 </a></li>		
+					<li><a target = "content" href='PlaystationP.html' data-level="final" data-console="psp"> PlayStation Portable </a></li>
+					<li><a target = "content" href='playstation_tv.html' data-level="final" data-console="pstv"> PlayStation TV </a></li>
+					<li><a target = "content" href='playstation_vita.html' data-level="final" data-console="psvita"> PlayStation Vita </a></li>
 				</ul>
 			</li>
-			<li class = "Microsoft"><a target='content' href = 'microsoft.html'> Microsoft </a>
+			<li class = "Microsoft"><a target='content' href = 'microsoft.html' data-console=""> Microsoft </a>
 				<ul class="second-level-menu">
-					<li><a target = "content" href='xbox.html'> Xbox</a></li>
-					<li><a target = "content" href='xbox360.html'> Xbox 360 </a></li>
-					<li><a target = "content" href='xbox1.html'> Xbox One</a></li>
+					<li><a target = "content" href='xbox.html' data-level="final" data-console="xbox"> Xbox</a></li>
+					<li><a target = "content" href='xbox360.html' data-level="final" data-console="xbox360"> Xbox 360 </a></li>
+					<li><a target = "content" href='xbox1.html' data-level="final" data-console="xbox1"> Xbox One</a></li>
 				</ul>
 			</li>
-			<li class = "Other"><a target='content' href = 'other.html'> Other </a></li>
-			<li class = "Contribute"><a target='content' href = 'contribute.html'> Contribute </a></li>
+			<li class = "Other"><a target='content' href = 'other.html' data-level="final" data-console="other"> Other </a></li>
+			<li class = "Contribute"><a target='content' href = 'contribute.html' data-console=""> Contribute </a></li>
 		</ul>
 	</nav>
 		
@@ -247,8 +314,12 @@
 		<br />
 		
 	<div class="main">
+<<<<<<< HEAD
 	
 		<iframe align="middle" onload="resizeIframe(this)" id="contentpage" name='content' src=home_articles.html></iframe>
+=======
+		<iframe align="middle" onload="resizeIframe(this);fetcharticles();" id="contentpage" name='content' src="home_articles.html" data-console=""></iframe>
+>>>>>>> d609aba6b8789ff471024c9c6749bbb7e8c4ffe1
 	
 	<br />
 		<br />
