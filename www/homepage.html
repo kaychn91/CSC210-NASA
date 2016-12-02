@@ -178,6 +178,7 @@
 				});
 			});
 			function resizeIframe(iframe) {
+				iframe = $('#contentpage')[0];
 				var iframehtml = $('#contentpage').contents().find("html");
 				iframe.height = iframehtml.height() + "px";
 			}
@@ -220,16 +221,17 @@
 					success: function(response){
 						var iframebody = $('#contentpage').contents().find("body");
 						iframebody.text("");
+						var ifm = $('#contentpage')[0];
 						$.each(response.images, function(index, value){
-							iframebody.append("<img style='resize:both; height:20%; width:20%;' src='Article-Images/"+value[0]+".png'>")
+							iframebody.append("<img onload='parent.resizeIframe(1)' style='resize:both; height:20%; width:20%;' src='Article-Images/"+value[0]+".png'>")
 						});
 						$.each(response.result, function(index,value) {
 							var articleTitle = value[1];
 							var articleText = value[2];
 							iframebody.append("<p style='font-weight:bold'>"+articleTitle+"</p>");
-							iframebody.append("<p>"+articleText+"</p>");							
+							iframebody.append("<p>"+articleText+"</p>");	
+							resizeIframe($('#contentpage')[0]);							
 						});
-						resizeIframe($('#contentpage')[0]);
 					},
 					error: function(response){
 						alert("article error");
