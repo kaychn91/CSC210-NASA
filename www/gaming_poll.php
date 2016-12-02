@@ -7,6 +7,7 @@ $content = file($filename);
 
 //putting the content in an array
 $array = explode("|", $content[0]);
+
 $action = $array[0];
 $act_adv = $array[1];
 $adv = $array[2];
@@ -32,6 +33,8 @@ if ($vote == 0) {
 	$sports = $sports + 1;
 } elseif ($vote == 7) {
 	$other = $other + 1;
+} else {
+	
 }
 
 //inserts the votes to the txt file
@@ -116,85 +119,3 @@ fclose($fp);
 		</td>
 	</tr>
 </table>
-<!--
-/*
-//set variables
-$emailForm = "graymizu@gmail.com";
-$emailTo = "graymizu@gmail.com";
-$subject = "HTML form demo";
-
-
-$name = Trim(stripslashes($_POST["theName"])); //post the variable from 11/1/16 notes
-$email = Trim(stripslashes($_POST["theEmail"])); //srubbing for security
-$phone = Trim(stripslashes($_POST["thePhone"])); //srubbing for security
-
-$checkFirefox = $_POST["buf-check"];
-$checkChrome = $_POST["buc-check"];
-$checkSafari = $_POST["bus-check"];
-$checkInterExp = $_POST["buie-check"];
-$checkEdge = $_POST["bue-check"];
-
-$selectBrowser = $_POST["browserFave"];
-
-$message = Trim(stripslashes($_POST["theMessage"]));
-
-$body = ""; //initialized the varialble
-
-$body .= "Name: ";
-$body .= $name;
-$body .= "\n";
-
-$body .= "Email: ";
-$body .= $email;
-$body .= "\n";
-
-$body .= "Phone Number: ";
-$body .= $phone;
-$body .= "\n\n";
-
-$body .= "Browsers Used: ";
-$body .= "\n";
-$body .= $checkFirefox;
-$body .= "\n";
-$body .= $checkChrome;
-$body .= "\n";
-$body .= $checkSafari;
-$body .= "\n";
-$body .= $checkInterExp;
-$body .= "\n";
-$body .= $checkEdge;
-$body .= "\n\n";
-
-$body .= "Favorite Browser: ";
-$body .= $selectBrowser;
-$body .= "\n\n";
-
-$body .= "Message: ";
-$body .= "\n";
-$body .= $message;
-$body .= "\n";
-
- //sending mail
-
- mail($emailTo, $subject, $body, "From: <$emailFrom");
- header("Location: contact-thanks.html");
- 
- // Message Example:
- // I hope this works! d(^_^o)
- */
--->
-
-
-
-
-
-
-
-<!--
-<div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow="70"
-  aria-valuemin="0" aria-valuemax="100" style="width:70%">
-    <span class="sr-only">70% Complete</span>
-  </div>
-</div>
--->
