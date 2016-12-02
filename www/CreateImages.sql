@@ -1,0 +1,1 @@
+CREATE TABLE `csc210`.`Images` ( `ArticleID` INT NOT NULL , `ImageId` INT NOT NULL AUTO_INCREMENT , `Time_Created` VARCHAR(200) NOT NULL , PRIMARY KEY (`ImageId`)) ENGINE = InnoDB;

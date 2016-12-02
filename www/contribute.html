@@ -58,7 +58,7 @@
 								datatype: "application/json",
 								type: "post",
 								success: function(response){
-									uploadimages();
+									uploadimages(response.articleid);
 								},
 								error: function(response){
 									alert("error while adding article");
@@ -76,11 +76,12 @@
 					}
 				});	
             });
-			function uploadimages()
+			function uploadimages(articleid)
 			{
 				var formdata = new FormData();
 				var total_file=$("#upload_file")[0].files.length;
 				formdata.append("fnc", "upload_image");
+				formdata.append("articleid", articleid)
 				for(var i=0;i<total_file;i++)
 				{
 					formdata.append("file"+i, $("#upload_file")[0].files[i]);
