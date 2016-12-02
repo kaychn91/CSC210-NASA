@@ -20,23 +20,46 @@ verify_user = cgi.FieldStorage()
 def SubmitArticle(username, text, title, platform, console):
 	conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
 	cursor = conn.cursor()
-	a = "INSERT into Articles(username, article_text, Title, Platform, Console) Values(%s, %s, %s, %s, %s)"
-	cursor.execute(a, (username, text, title, platform, console))
+	currentdate = str(datetime.datetime.now())
+	a = "INSERT into Articles(username, article_text, Title, Platform, Console, TimeCreated) Values(%s, %s, %s, %s, %s, %s)"
+	cursor.execute(a, (username, text, title, platform, console, currentdate))
 	conn.commit()
+	b = "Select ArticleID from Articles where username= %s && TimeCreated = %s"
+	cursor.execute(b, (username, currentdate))
+	result = cursor.fetchall()
+	if(len(result)==1):
+		for row in result:
+			aid = row[0]
 	conn.close()
+	return aid
 
-def Save_Uploaded_File(form_field):
+def Save_Uploaded_File(form_field, articleid):
+	conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
+	cursor = conn.cursor()
+	currentdate = str(datetime.datetime.now())
+	a = "INSERT into Images(ArticleID, Time_Created) Values(%s,%s)"
+	cursor.execute(a, (articleid,currentdate))
+	conn.commit()
+	b = "Select ImageId from Images where articleID=%s && Time_Created =%s"
+	cursor.execute(b, (articleid, currentdate))
+	result = cursor.fetchall()
+	fnm = ""
+	if(len(result)==1):
+		for row in result:
+			fnm = str(row[0])
+	conn.close()
 	if not verify_user.has_key(form_field): 
 		raise ValueError(form_field + 'field in form not found')
 	fileitem = verify_user[form_field]
 	if not fileitem.file: 
 		raise ValueError('file doesnt have any appended files')
-	fout = file(os.path.join("F:\Web-Dev-Class\www\images", fileitem.filename), 'wb')
+	fout = file(os.path.join("F:\Web-Dev-Class\www\Article-Images", fnm+".png"), 'wb')
 	while 1:
 		chunk = fileitem.file.read(100000)
 		if not chunk: break
 		fout.write(chunk)
 	fout.close()
+	
 
 def GetArticle(articleID):
 	conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
@@ -62,6 +85,18 @@ def fetchArticles(console):
 	else:
 		return False
 
+def getImages(articleid):
+	conn = mdb.connect(db='csc210', host='localhost', user='root', passwd='mysql')
+	c=conn.cursor()
+	cmd = "select ImageId from Images where ArticleID = %s"
+	c.execute(cmd, (articleid,))
+	results = c.fetchall()
+	conn.close()
+	if len(results)>0:
+		return results
+	else:
+		return False
+		
 cgitb.enable()
 
 fnc = verify_user['fnc'].value
@@ -78,18 +113,21 @@ if fnc == 'submitarticle':
 	username = verify_user['username'].value
 	text = verify_user['atext'].value
 	title = verify_user['atitle'].value
-	SubmitArticle(username, text, title, platform, console)
+	articleid = SubmitArticle(username, text, title, platform, console)
 	result['result'] = True
+	result['articleid'] = articleid
 elif fnc == 'fetch':
 	console = verify_user['console'].value
 	result['result'] = fetchArticles(console)
 elif fnc == 'getarticle':
 	articleID = verify_user['articleID'].value
 	result['result'] = GetArticle(articleID)
-else:
+	result['images'] = getImages(articleID)
+elif fnc == 'upload_image':
 	imageno = verify_user['imageno'].value
+	articleid = verify_user['articleid'].value
 	for i in range(int(imageno)):
-		Save_Uploaded_File("file" + str(i))
+		Save_Uploaded_File("file" + str(i), articleid)
 	result['result'] = True
 
 sys.stdout.write(json.dumps(result, indent=1))
