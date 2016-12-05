@@ -162,6 +162,31 @@
 				$("#contentpage").attr('data-console',data_console);
 				sessionStorage.contentconsole = $('#contentpage').attr('data-console');
 			}
+			if (sessionStorage.navlink=='home_articles.html'){
+				alert('home');
+				recentarticles();
+			}
+			function recentarticles(){
+				$.ajax({
+						url: "cgi-bin/ArticleData.py",
+						data: {fnc: "recent"},
+						datatype: "application/json",
+						type: "get",
+						success: function(response){
+							$('#contentpage').contents().find("body").find(".fas").text("");
+							$.each(response.result, function(index,value) {
+								var articleID = value[0];
+								var  articleTitle = value[1];
+								var articleText = value[2];
+								DisplayAllArticles(articleID,articleTitle,articleText);
+								resizeIframe($('#contentpage')[0]);
+							});
+						},
+						error: function(response){
+							alert("fetch error");
+						}
+					});
+			}
 			function DisplayAllArticles(articleID,articleTitle,articleText){
 				var iframebody = $('#contentpage').contents().find("body");				
 				iframebody.append("<p style='font-weight:bold'>"+articleTitle+":");
