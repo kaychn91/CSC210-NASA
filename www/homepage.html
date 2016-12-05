@@ -189,7 +189,7 @@
 				var iframebody = $('#contentpage').contents().find("body");				
 				iframebody.append("<p style='font-weight:bold'>"+articleTitle+":");
 				//iframebody.append(articleText + " <a onclick='parent.ShowArticle("+ articleID + ")'>Read More</a></p>");
-				iframebody.append(articleText + "<a onclick ='parent.changepage("+articleID+")'> Read More </a></p>");
+				iframebody.append(articleText + "<a style='color:blue' onclick ='parent.changepage("+articleID+")'> Read More </a></p>");
 			}
 			function changepage (aid){
 				$("#contentpage").attr('data-console', 'article');
