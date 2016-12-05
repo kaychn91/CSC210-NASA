@@ -31,7 +31,6 @@
 		// <!-- for checkbox buttons only -->
 		
 		var chosen = new Array;
-		var buttons = ["pkmon-check", "aCreed-check", "wd2-check", "deadRise-check", "lastG-check", "darkside-check", "finfan15-check", "sGate-check", "steep-check", "smm-check"];
 
 		function inArray(int){
 			chosen.push(int);
@@ -42,13 +41,6 @@
 		}
 
 		function tallyVotes(){
-			for (var i = 0; i < buttons.length; i++) {
-				$("#buttons[i]").click(function(){
-					inArray(this.value);
-				}
-			}
-			
-			});
 			if(chosen.length == 0){
 				window.alert("Please select a game before submiting.");
 			}else{
@@ -156,70 +148,70 @@
 					<form>
 
 						<h2>What games are you really excited for?</h2>
-							<input type="checkbox" name="newGame" id="pkmon-check" value="0">
+							<input type="checkbox" name="newGame" id="pkmon-check" value="0" onclick="inArray(this.value)">
 							<label for="pkmon-check">Pokémon Sun/Moon</label>
 							<!-- External Links don't work in Localhost.
 							<input type="button" onclick="location.href='https://www.amazon.com/gp/product/B01C93CWSI/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01C93CWSI&linkCode=as2&tag=metacritic04-20&th=1'; location.target='_blank'; " value="Buy From Amazon"/>
 							-->
 							<br><br>
 
-							<input type="checkbox" name="newGame" id="aCreed-check" value="1">
+							<input type="checkbox" name="newGame" id="aCreed-check" value="1" onclick="inArray(this.value)">
 							<label for="aCreed-check">Assassin's Creed: The Ezio Collection</label>
 							<!-- External Links don't work in Localhost.
 							<input type="button" onclick="location.href='https://www.amazon.com/gp/product/B01LXHDC8I/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01LXHDC8I&linkCode=as2&tag=metacritic04-20'; location.target='_blank'; " value="Buy From Amazon"/>
 							-->
 							<br><br>
 
-							<input type="checkbox" name="newGame" id="wd2-check" value="2">
+							<input type="checkbox" name="newGame" id="wd2-check" value="2" onclick="inArray(this.value)">
 							<label for="wd2-check">Watch_Dogs 2</label>
 							<!-- External Links don't work in Localhost.
 							<input type="button" onclick="location.href='https://www.amazon.com/gp/product/B01GKF7T9S/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01GKF7T9S&linkCode=as2&tag=metacritic04-20'; location.target='_blank'; " value="Buy From Amazon"/>
 							-->
 							<br><br>
 
-							<input type="checkbox" name="newGame" id="deadRise-check" value="3">
+							<input type="checkbox" name="newGame" id="deadRise-check" value="3" onclick="inArray(this.value)">
 							<label for="deadRise-check">Dead Rising 4</label>
 							<!--  External Links don't work in Localhost.
 							<input type="button" onclick="location.href='https://www.amazon.com/gp/product/B01GW3LR8M/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01GW3LR8M&linkCode=as2&tag=metacritic04-20'; location.target='_blank'; " value="Buy From Amazon"/>
 							-->
 							<br><br>
 
-							<input type="checkbox" name="newGame" id="lastG-check" value="4">
+							<input type="checkbox" name="newGame" id="lastG-check" value="4" onclick="inArray(this.value)">
 							<label for="lastG-check">The Last Guardian</label>
 							<!--  External Links don't work in Localhost.
 							<input type="button" onclick="location.href='https://www.amazon.com/dp/B00ZQBLNP4%3FSubscriptionId%3DAKIAJHSMUOWEQCQ7QDAQ%26tag%3Dmetacritic-games-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00ZQBLNP4'; location.target='_blank'; " value="Buy From Amazon"/>
 							-->
 							<br><br>
 
-							<input type="checkbox" name="newGame" id="darkside-check" value="5">
+							<input type="checkbox" name="newGame" id="darkside-check" value="5" onclick="inArray(this.value)">
 							<label for="darkside-check">Darksiders: Warmastered Edition</label>
 							<!--  External Links don't work in Localhost.
 							<input type="button" onclick="location.href='https://www.amazon.com/gp/product/B01JCUVEDA/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01JCUVEDA&linkCode=as2&tag=metacritic08-20'; location.target='_blank'; " value="Buy From Amazon"/>
 							-->
 							<br><br>
 
-							<input type="checkbox" name="newGame" id="finfan15-check" value="6">
+							<input type="checkbox" name="newGame" id="finfan15-check" value="6" onclick="inArray(this.value)">
 							<label for="finfan15-check">Final Fantasy XV</label>
 							<!--  External Links don't work in Localhost.
 							<input type="button" onclick="location.href='https://www.amazon.com/gp/product/B00DBF829C/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00DBF829C&linkCode=as2&tag=metacritic04-20'; location.target='_blank'; " value="Buy From Amazon"/>
 							-->
 							<br><br>
 
-							<input type="checkbox" name="newGame" id="sGate-check" value="7">
+							<input type="checkbox" name="newGame" id="sGate-check" value="7" onclick="inArray(this.value)">
 							<label for="sGate-check">Steins;Gate 0</label>
 							<!--  External Links don't work in Localhost.
 							<input type="button" onclick="location.href='https://www.amazon.com/gp/product/B01JHQURAU/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01JHQURAU&linkCode=as2&tag=metacritic04-20'; location.target='_blank'; " value="Buy From Amazon"/>
 							-->
 							<br><br>
 
-							<input type="checkbox" name="newGame" id="steep-check" value="8">
+							<input type="checkbox" name="newGame" id="steep-check" value="8" onclick="inArray(this.value)">
 							<label for="steep-check">Steep</label>
 							<!--  External Links don't work in Localhost.
 							<input type="button" onclick="location.href='https://www.amazon.com/gp/product/B01GWLIYUI/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01GWLIYUI&linkCode=as2&tag=metacritic04-20&th=1'; location.target='_blank'; " value="Buy From Amazon"/>
 							-->
 							<br><br>
 
-							<input type="checkbox" name="newGame" id="smm-check" value="9">
+							<input type="checkbox" name="newGame" id="smm-check" value="9" onclick="inArray(this.value)">
 							<label for="smm-check">Super Mario Maker</label>
 							<!--  External Links don't work in Localhost.
 							<input type="button" onclick="location.href='https://www.amazon.com/gp/product/B01LDUYU60/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B01LDUYU60&linkCode=as2&tag=metacritic04-20'; location.target='_blank'; " value="Buy From Amazon"/>
