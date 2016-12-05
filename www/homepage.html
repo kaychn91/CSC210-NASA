@@ -11,6 +11,7 @@
 			$(document).ready(function(){
 				$("#contentpage").prop('src',sessionStorage.navlink);
 				$("#contentpage").attr('data-console',sessionStorage.contentconsole);
+				recentarticles();
 				var loggedin = "";
 				loggedin = getCookie();
 				if(loggedin == "")
