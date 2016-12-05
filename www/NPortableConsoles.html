@@ -3,6 +3,15 @@
 	<head>
 		<title> Nintendo - Portable Consoles </title>
 		<link rel="stylesheet" type="text/css" href="css/pages.css" media="screen" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$(".consoles").click(function(e) {
+					var data_console = $(this).attr('data-console');
+					parent.navigatetoconsole(data_console);
+				});
+			});
+		</script>
 	</head>
 
 	<body>
@@ -10,31 +19,31 @@
 		<h1> Nintendo Portable Consoles </h1>
 		<div class="subIMG">
 		<figure>
-			 <a href="GameAndWatch.html" class="consoles"><img src="images/GW.png" alt="Game&Watch"></a>
+			 <a href="GameAndWatch.html" data-console="gaw" class="consoles"><img src="images/GW.png" alt="Game&Watch"></a>
 			<figcaption> Game And Watch </figcaption>
 		</figure>
 		<figure> 
-			<a href="GameBoy.html" class="consoles"><img src="images/Gameboy.jpg" alt="Game Boy"> </a>
+			<a href="GameBoy.html" data-console="gb" class="consoles"><img src="images/Gameboy.jpg" alt="Game Boy"> </a>
 			<figcaption> Game Boy </figcaption>
 		</figure>
 		<figure>
-			 <a href="VirtualBoy.html" class="consoles"><img src="images/VirtualBoy.jpg" alt="Virtual Boy"></a>
+			 <a href="VirtualBoy.html" data-console="vb" class="consoles"><img src="images/VirtualBoy.jpg" alt="Virtual Boy"></a>
 			<figcaption> Virtual Boy </figcaption>
 		</figure>
 		<figure> 
-			<a href="GameBoyC.html" class="consoles"><img src="images/gameboyC.jpg" alt="Game Boy Color"> </a>
+			<a href="GameBoyC.html" data-console="gbc" class="consoles"><img src="images/gameboyC.jpg" alt="Game Boy Color"> </a>
 			<figcaption> Game Boy Color </figcaption>
 		</figure>
 		<figure>
-			 <a href="GameBoyA.html" class="consoles"><img src="images/GBA.jpg" alt="Game Boy Advance"></a>
+			 <a href="GameBoyA.html" data-console="gba" class="consoles"><img src="images/GBA.jpg" alt="Game Boy Advance"></a>
 			<figcaption> Game Boy Advance </figcaption>
 		</figure>
 		<figure> 
-			<a href="DS.html" class="consoles"><img src="images/DS.jpg" alt="Nintendo DS"> </a>
+			<a href="DS.html" data-console="ds" class="consoles"><img src="images/DS.jpg" alt="Nintendo DS"> </a>
 			<figcaption> Nintendo DS </figcaption>
 		</figure>
 		<figure> 
-			<a href="3DS.html" class="consoles"><img src="images/3DS.jpg" alt="Nintendo 3DS"> </a>
+			<a href="3DS.html" data-console="3ds" class="consoles"><img src="images/3DS.jpg" alt="Nintendo 3DS"> </a>
 			<figcaption> Nintendo 3DS </figcaption>
 		</figure>
 		</div>

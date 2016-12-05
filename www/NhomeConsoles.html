@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<title> Nintendo - Home Consoles</title>
 		<link rel="stylesheet" type="text/css" href="css/pages.css" media="screen" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$(".consoles").click(function(e) {
+					var data_console = $(this).attr('data-console');
+					parent.navigatetoconsole(data_console);
+				});
+			});
+		</script>
 	</head>
 
 	<body>
@@ -11,27 +19,27 @@
 		<h1> Nintendo Home Consoles </h1>
 		<div class="subIMG">
 		<figure>
-			 <a href="NES.html" class="consoles"><img src="images/NES.jpg" alt="NES"></a>
+			 <a href="NES.html" data-console="nes" class="consoles"><img src="images/NES.jpg" alt="NES"></a>
 			<figcaption> NES </figcaption>
 		</figure>
 		<figure> 
-			<a href="SNES.html" class="consoles"><img src="images/SNES.jpg" alt="SNES"> </a>
+			<a href="SNES.html" data-console="snes" class="consoles"><img src="images/SNES.jpg" alt="SNES"> </a>
 			<figcaption> SNES </figcaption>
 		</figure>
 		<figure>
-			 <a href="N64.html" class="consoles"><img src="images/N64.jpg" alt="N64"></a>
+			 <a href="N64.html" data-console="n64" class="consoles"><img src="images/N64.jpg" alt="N64"></a>
 			<figcaption> N64 </figcaption>
 		</figure>
 		<figure> 
-			<a href="Gamecube.html" class="consoles"><img src="images/Gamecube.jpg" alt="Gamecube"> </a>
+			<a href="Gamecube.html" data-console="gamecube" class="consoles"><img src="images/Gamecube.jpg" alt="Gamecube"> </a>
 			<figcaption> Gamecube </figcaption>
 		</figure>
 		<figure>
-			 <a href="Wii.html" class="consoles"><img src="images/Wii.jpg" alt="Wii"></a>
+			 <a href="Wii.html" data-console="wii" class="consoles"><img src="images/Wii.jpg" alt="Wii"></a>
 			<figcaption> Wii </figcaption>
 		</figure>
 		<figure> 
-			<a href="WiiU.html" class="consoles"><img src="images/WiiU.jpg" alt="Wii U"> </a>
+			<a href="WiiU.html" data-console="wiiu" class="consoles"><img src="images/WiiU.jpg" alt="Wii U"> </a>
 			<figcaption> WiiU </figcaption>
 		</figure>
 		</div>

@@ -3,6 +3,15 @@
 	<head>
 		<title> Sony </title>
 		<link rel="stylesheet" type="text/css" href="css/pages.css" media="screen" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$(".consoles").click(function(e) {
+					var data_console = $(this).attr('data-console');
+					parent.navigatetoconsole(data_console);
+				});
+			});
+		</script>
 	</head>
 
 	<body>
@@ -10,31 +19,31 @@
 		<h1> Sony Playstation</h1>
 		<div class="subIMG">
 		<figure>
-			 <a href="Playstation.html" class="consoles"><img src="images/ps1.png" alt="Playstation"></a>
+			 <a href="Playstation.html" data-console="ps" class="consoles"><img src="images/ps1.png" alt="Playstation"></a>
 			<figcaption> Playstation </figcaption>
 		</figure>
 		<figure> 
-			<a href="Playstation2.html" class="consoles"><img src="images/playstation2.jpg" alt="Playstation2"> </a>
+			<a href="Playstation2.html" data-console="ps2" class="consoles"><img src="images/playstation2.jpg" alt="Playstation2"> </a>
 			<figcaption> Playstation 2 </figcaption>
 		</figure>
 		<figure>
-			 <a href="Playstation3.html" class="consoles"><img src="images/ps3.jpg" alt="Playstation3"></a>
+			 <a href="Playstation3.html" data-console="ps3" class="consoles"><img src="images/ps3.jpg" alt="Playstation3"></a>
 			<figcaption> Playstation 3 </figcaption>
 		</figure>
 		<figure> 
-			<a href="Playstation4.html" class="consoles"><img src="images/ps4.jpg" alt="Playstation4"> </a>
+			<a href="Playstation4.html" data-console="ps4" class="consoles"><img src="images/ps4.jpg" alt="Playstation4"> </a>
 			<figcaption> Playstation 4 </figcaption>
 		</figure>
 		<figure>
-			 <a href="PlaystationP.html" class="consoles"><img src="images/PSP.jpg" alt="Playstation Portable"></a>
+			 <a href="PlaystationP.html" data-console="psp" class="consoles"><img src="images/PSP.jpg" alt="Playstation Portable"></a>
 			<figcaption> Playstation Portable </figcaption>
 		</figure>
 		<figure> 
-			<a href="playstation_tv.html" class="consoles"><img src="images/PSTV.jpg" alt="Playstation TV"> </a>
+			<a href="playstation_tv.html" data-console="pstv" class="consoles"><img src="images/PSTV.jpg" alt="Playstation TV"> </a>
 			<figcaption> Playstation TV </figcaption>
 		</figure>
 		<figure> 
-			<a href="playstation_vita.html"class="consoles"><img src="images/PSvita.jpg" alt="Playstation Vita"> </a>
+			<a href="playstation_vita.html" data-console="psvita" class="consoles"><img src="images/PSvita.jpg" alt="Playstation Vita"> </a>
 			<figcaption> Playstation Vita </figcaption>
 		</figure>
 		</div>

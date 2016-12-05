@@ -43,7 +43,7 @@
 										}
 										loggedin=getCookie();
 										sessionStorage.username = user;
-										hide_sign_in();
+										hide_sign_in(loggedin);
 									}
 									else
 									{
@@ -65,8 +65,6 @@
 					loggedin = getCookie();
 					hide_sign_out();
 				});
-				
-
 				$(".top-level-menu").click(function(e) {
 					var parent = $(e.target).parent().parent().attr('class');
 					if(parent.indexOf("level-menu")>0)
@@ -159,6 +157,10 @@
 						}
 					});
 				}
+			}
+			function navigatetoconsole(data_console){
+				$("#contentpage").attr('data-console',data_console);
+				sessionStorage.contentconsole = $('#contentpage').attr('data-console');
 			}
 			function DisplayAllArticles(articleID,articleTitle,articleText){
 				var iframebody = $('#contentpage').contents().find("body");				
