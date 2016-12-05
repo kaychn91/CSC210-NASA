@@ -163,10 +163,7 @@
 				$("#contentpage").attr('data-console',data_console);
 				sessionStorage.contentconsole = $('#contentpage').attr('data-console');
 			}
-			if (sessionStorage.navlink=='home_articles.html'){
-				alert('home');
-				recentarticles();
-			}
+			
 			function recentarticles(){
 				$.ajax({
 						url: "cgi-bin/ArticleData.py",
