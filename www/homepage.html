@@ -12,50 +12,14 @@
 				$("#contentpage").prop('src',sessionStorage.navlink);
 				$("#contentpage").attr('data-console',sessionStorage.contentconsole);
 				var loggedin = "";
-				function getCookie() {
-					var cks = document.cookie.split(';');
-					var n = 0;
-					var uname="";
-					for(var i = 0;i<cks.length;i++)
-					{
-						n = cks[i].search("username=")
-						if(n!=-1){
-						var x = cks[i].split("username=")
-						uname = x[1];
-						break;
-						}
-					}
-					if(n == -1)
-						return "";
-					else
-					{
-						sessionStorage.username = uname;
-						return uname;
-					}
-				}
 				loggedin = getCookie();
-				function hide_sign_out()
-				{
-					$(".SignOut").hide();
-					$(".SignIn").show();
-					$("#TAComment").prop('disabled',true);
-					$("#submitcomment").prop('disabled',true)
-				}
-				function hide_sign_in()
-				{
-					$(".SignIn").hide();
-					$("#userid").text(loggedin);
-					$(".SignOut").show();
-					$("#TAComment").prop('disabled',false);
-					$("#submitcomment").prop('disabled',false)
-				}
 				if(loggedin == "")
 				{
 					hide_sign_out();
 				}
 				else
 				{
-					hide_sign_in();
+					hide_sign_in(loggedin);
 				}
 				$("#sign_in").click(function (){
 						var user = $("#username").val();
@@ -102,62 +66,7 @@
 					hide_sign_out();
 				});
 				
-				//insert comment
-				$("#submitcomment").click(function () {
-					var user = sessionStorage.username;
-					var commenttext = $("#TAComment").val().trim();
-					if(commenttext!="")
-					{
-						$.ajax({
-							url: "/cgi-bin/CommentData.py",
-							data: {username: user, articleID: 1, fnc: 'submitcomment', comment_text: commenttext},
-							datatype: "application/json",
-							type: "get",
-							success: function(response){
-								//show comments
-								show_comments();
-								$("#TAComment").val("");
-							},
-							error: function(response){
-								alert("error in inserting comments");
-							}
-						});
-					}
-					else
-					{
-						alert("Text area cannot be blank");
-					}
-				});
-				//show comments
-				function show_comments(){
-				$("#comments_area").html("");
-					var username ="";
-					var comment_text = "";
-					var commentid = 0;
-					$.ajax({
-						url: "cgi-bin/CommentData.py",
-						data:{fnc: 'GetComments', articleID: 1},
-						datatype: "application/json",
-						type: "get",
-						success: function(response){
-							//displays commentss
-							$.each(response.result, function(index, value) {
-								username = value[0];
-								commentid = value[1];
-								comment_text = value[2];
-								if(username!="")
-								{
-									var comments_html = '<br>'+username+':<br><textarea id="' + commentid + ' rows="10" cols="50" disabled="true" style="resize: none;">'+comment_text+'</textarea><br>'
-									$("#comments_area").append(comments_html);
-								}
-							});
-						},
-						error: function(response){
-							alert("alert getting comments in python scritp")
-						}
-					});
-				}
-				show_comments();
+
 				$(".top-level-menu").click(function(e) {
 					var parent = $(e.target).parent().parent().attr('class');
 					if(parent.indexOf("level-menu")>0)
@@ -177,6 +86,50 @@
 					sessionStorage.contentconsole = $('#contentpage').attr('data-console');
 				});
 			});
+			function hide_sign_out()
+			{
+				$(".SignOut").hide();
+				$(".SignIn").show();
+				if($("#contentpage").attr('data-console') == 'article'){
+					$("#contentpage").contents().find("#TAComment").prop('disabled',true);
+					$("#contentpage").contents().find("#submitcomment").prop('disabled',true);
+					//$("#TAComment").prop('disabled',true);
+					//$("#submitcomment").prop('disabled',true);
+				}
+			}
+			function hide_sign_in(loggedin)
+			{
+				$(".SignIn").hide();
+				$("#userid").text(loggedin);
+				$(".SignOut").show();
+				if($("#contentpage").attr('data-console') == 'article'){
+					$("#contentpage").contents().find("#TAComment").prop('disabled',false);
+					$("#contentpage").contents().find("#submitcomment").prop('disabled',false);
+					//$("#TAComment").prop('disabled',false);
+					//$("#submitcomment").prop('disabled',false);
+				}
+			}
+			function getCookie() {
+				var cks = document.cookie.split(';');
+				var n = 0;
+				var uname="";
+				for(var i = 0;i<cks.length;i++)
+				{
+					n = cks[i].search("username=")
+					if(n!=-1){
+					var x = cks[i].split("username=")
+					uname = x[1];
+					break;
+					}
+				}
+				if(n == -1)
+					return "";
+				else
+				{
+					sessionStorage.username = uname;
+					return uname;
+				}
+			}
 			function resizeIframe(iframe) {
 				iframe = $('#contentpage')[0];
 				var iframehtml = $('#contentpage').contents().find("html");
@@ -184,7 +137,7 @@
 			}
 			function fetcharticles(){
 				console = $('#contentpage').attr('data-console');
-				if(console!="")
+				if(console!="" && console!="article")
 				{
 					$.ajax({
 						url: "cgi-bin/ArticleData.py",
@@ -210,34 +163,18 @@
 			function DisplayAllArticles(articleID,articleTitle,articleText){
 				var iframebody = $('#contentpage').contents().find("body");				
 				iframebody.append("<p style='font-weight:bold'>"+articleTitle+":");
-				iframebody.append(articleText + " <a onclick='parent.ShowArticle("+ articleID + ")'>Read More</a></p>");
+				//iframebody.append(articleText + " <a onclick='parent.ShowArticle("+ articleID + ")'>Read More</a></p>");
+				iframebody.append(articleText + "<a onclick ='parent.changepage("+articleID+")'> Read More </a></p>");
 			}
-			function ShowArticle(articleID){
-				$.ajax({
-					url: "cgi-bin/ArticleData.py",
-					data: {fnc: "getarticle", articleID: articleID},
-					datatype: "application/json",
-					type: "get",
-					success: function(response){
-						var iframebody = $('#contentpage').contents().find("body");
-						iframebody.text("");
-						var ifm = $('#contentpage')[0];
-						$.each(response.images, function(index, value){
-							iframebody.append("<img onload='parent.resizeIframe(1)' style='resize:both; height:20%; width:20%;' src='Article-Images/"+value[0]+".png'>")
-						});
-						$.each(response.result, function(index,value) {
-							var articleTitle = value[1];
-							var articleText = value[2];
-							iframebody.append("<p style='font-weight:bold'>"+articleTitle+"</p>");
-							iframebody.append("<p>"+articleText+"</p>");	
-							resizeIframe($('#contentpage')[0]);							
-						});
-					},
-					error: function(response){
-						alert("article error");
-					}
-				});
+			function changepage (aid){
+				$("#contentpage").attr('data-console', 'article');
+				$("#contentpage").attr('data-articleid',aid);
+				$("#contentpage").prop('src','DisplayArticle.html');
 			}
+			function getaid(){
+				return $("#contentpage").attr('data-articleid');
+			}
+			
 		</script>
 	</head>
 
@@ -319,20 +256,10 @@
 		<br />
 		
 	<div class="main">
-		<iframe align="middle" onload="resizeIframe(this);fetcharticles();" id="contentpage" name='content' src="home_articles.html" data-console=""></iframe>
+		<iframe align="middle" onload="resizeIframe(this);fetcharticles();" id="contentpage" name='content' src="home_articles.html" data-console="" data-articleid=""></iframe>
 	
 	<br />
 		<br />
-		<div class="DivComment">
-
-			<b>Comment Section</b>
-			<br>
-			<div id="comments_area">
-			</div>
-			<br>
-			<textarea id="TAComment" rows="4" cols="50" disabled="true" style="resize: none;"></textarea><br>
-			<input type="button" id="submitcomment" value="Submit" disabled="true"/>
-		</div>
 		</div>
 		<footer>
 			<p> NASA 2016 </br></br>

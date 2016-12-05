@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				//insert comment
+				var loggedin = "";
+				loggedin = parent.getCookie();
+				if(loggedin == "")
+				{
+					parent.hide_sign_out();
+				}
+				else
+				{
+					parent.hide_sign_in(loggedin);
+				}
+				var articleid = parent.getaid();
+				$("#submitcomment").click(function () {
+					var user = sessionStorage.username;
+					var commenttext = $("#TAComment").val().trim();
+					if(commenttext!="")
+					{
+						$.ajax({
+						url: "/cgi-bin/CommentData.py",
+							data: {username: user, articleID: articleid, fnc: 'submitcomment', comment_text: commenttext},
+							datatype: "application/json",
+							type: "get",
+							success: function(response){
+								//show comments
+								show_comments();
+								$("#TAComment").val("");
+							},
+							error: function(response){
+								alert("error in inserting comments");
+							}
+						});
+					}
+					else
+					{
+						alert("Text area cannot be blank");
+					}
+				});
+				//show comments
+				function show_comments(){
+					$("#comments_area").html("");
+					var username ="";
+					var comment_text = "";
+					var commentid = 0;
+					$.ajax({
+						url: "cgi-bin/CommentData.py",
+						data:{fnc: 'GetComments', articleID: articleid},
+						datatype: "application/json",
+						type: "get",
+						success: function(response){
+							//displays commentss
+							$.each(response.result, function(index, value) {
+								username = value[0];
+								commentid = value[1];
+								comment_text = value[2];
+								if(username!="")
+								{
+									var comments_html = '<br>'+username+':<br><textarea id="' + commentid + ' rows="10" cols="50" disabled="true" style="resize: none;">'+comment_text+'</textarea><br>'
+									$("#comments_area").append(comments_html);
+								}
+							});
+						},
+						error: function(response){
+							alert("alert getting comments in python script")
+						}
+					});
+				}
+				show_comments();
+				ShowArticle(articleid);	
+			});
+			function ShowArticle(articleid){
+				$.ajax({
+					url: "cgi-bin/ArticleData.py",
+					data: {fnc: "getarticle", articleID: articleid},
+					datatype: "application/json",
+					type: "get",
+					success: function(response){
+						var articlediv = $("#DivArticle");
+						articlediv.text("");
+						$.each(response.images, function(index, value){
+							articlediv.append("<img onload='parent.resizeIframe(1)' style='resize:both; height:20%; width:20%;' src='Article-Images/"+value[0]+".png'>")
+						});
+						$.each(response.result, function(index,value) {
+							var articleTitle = value[1];
+							var articleText = value[2];
+							articlediv.append("<p style='font-weight:bold'>"+articleTitle+"</p>");
+							articlediv.append("<p>"+articleText+"</p>");	
+							parent.resizeIframe(1);							
+						});
+					},
+					error: function(response){
+						alert("article error");
+					}
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div id = "DivArticle">
+		
+		</div>
+		<div class="DivComment">
+			<b>Comment Section</b>
+			<br>
+			<div id="comments_area">
+			</div>
+			<br>
+			<textarea id="TAComment" rows="4" cols="50" disabled="true" style="resize: none;"></textarea><br>
+			<input type="button" id="submitcomment" value="Submit" disabled="true"/>
+		</div>
+	</body>
+</html>
