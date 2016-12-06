@@ -172,6 +172,9 @@ elif fnc == 'upload_image':
 	for i in range(int(imageno)):
 		Save_Uploaded_File("file" + str(i), articleid)
 	result['result'] = True
+elif fnc == 'getAs':
+    user = verify_user['username'].value
+    result['result'] = userAs(user)
 elif fnc =='recent':
     result['result']=getRecent()
 elif fnc == 'del':
