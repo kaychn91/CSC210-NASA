@@ -2,42 +2,15 @@
 
 	<head>
 		<title>Other</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script>
-		
-			$(document).ready(function(){
-				function show_articles(){
-				$("#article_area").html("");	
-					var articleid = 0;
-					var title = "";
-					$.ajax({
-						url: "cgi-bin/ArticleData.py",
-						data:{fnc: 'fetch', console: "other"},
-						datatype: "application/json",
-						type: "get",
-						success: function(response){
-							$.each(response.result, function(index, value) {
-								articleid = value[0];
-								title = value[1];
-								var articles_html = '<h1><a id="'+articleid+'" href="Article.html">'+title+'</a></h1>'
-								$("#article_area").prepend(articles_html);
-							});
-						},
-						error: function(response){
-							alert("error getting articles in py")
-						}
-					});
-				}
-				show_articles();
-			});
-		</script>
+	<link rel="stylesheet" type="text/css" href="css/articles.css" media="screen" />
+
 	</head>
 
 	<body>
-		<p>Other stuff...</p>
-		<div id='article_area'>
-		</div>
-		<br><br><br><br><br><br><br><br><br><br><br><br>
+		<h1>PC</h1>
+		<hr>
+		<div class='bod'>
+			</div>
 	</body>
 
 </html>
