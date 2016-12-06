@@ -144,7 +144,7 @@
 						datatype: "application/json",
 						type: "get",
 						success: function(response){
-							$('#contentpage').contents().find("body").text("");
+							$('#contentpage').contents().find("bod").text("");
 							$.each(response.result, function(index,value) {
 								var articleID = value[0];
 								var  articleTitle = value[1];
@@ -186,7 +186,7 @@
 					});
 			}
 			function DisplayAllArticles(articleID,articleTitle,articleText){
-				var iframebody = $('#contentpage').contents().find("body");				
+				var iframebody = $('#contentpage').contents().find("bod");				
 				iframebody.append("<p style='font-weight:bold'>"+articleTitle+":");
 				//iframebody.append(articleText + " <a onclick='parent.ShowArticle("+ articleID + ")'>Read More</a></p>");
 				iframebody.append(articleText + "<a style='color:blue' onclick ='parent.changepage("+articleID+")'> Read More </a></p>");
