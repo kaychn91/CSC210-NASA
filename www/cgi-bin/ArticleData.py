@@ -76,7 +76,7 @@ def GetArticle(articleID):
 def fetchArticles(console):
 	conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
 	c = conn.cursor()
-	cmd = "SELECT ArticleID,Title,left(article_text,100) FROM Articles WHERE Console=%s LIMIT 5"
+	cmd = "SELECT ArticleID,Title,left(article_text,100) FROM Articles WHERE Console=%s LIMIT 10"
 	c.execute(cmd, (console,))
 	results = c.fetchall()
 	conn.close()
