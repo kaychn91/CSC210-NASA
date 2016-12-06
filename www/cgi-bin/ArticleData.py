@@ -100,9 +100,28 @@ def getImages(articleid):
 def getRecent():
     conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
     c = conn.cursor()
-    cmd = "SELECT ArticleID,Title,left(article_text,100) FROM Articles ORDER BY TimeCreated DESC LIMIT 15"
+    cmd = "SELECT ArticleID,Title,left(article_text,100) FROM Articles ORDER BY TimeCreated DESC LIMIT 13"
     c.execute(cmd)
     results = c.fetchall()
+    conn.close()
+    if len(results)>0:
+        return results
+    else:
+        return False
+
+def delete(aid):
+    conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
+    c = conn.cursor()
+    b = "SELECT ImageId FROM Images WHERE ArticleID=%s"
+    c.execute(b, (aid,))
+    results = c.fetchall()
+    e = "DELETE FROM Images WHERE ArticleID=%s"
+    c.execute(e, (aid,))
+    a = "DELETE FROM Comments WHERE articleid=%s"
+    c.execute(a, (aid,))
+    d = "DELETE FROM Articles WHERE ArticleID=%s"
+    c.execute(d, (aid,))
+    conn.commit()
     conn.close()
     if len(results)>0:
         return results
@@ -143,6 +162,13 @@ elif fnc == 'upload_image':
 	result['result'] = True
 elif fnc =='recent':
     result['result']=getRecent()
+elif fnc == 'del':
+    aid = verify_user['aid'].value
+    ims = delete(aid)
+    for index in ims:
+        fnm=ims[index]
+        os.remove("C:\Program Files (x86)\Ampps\www\Article-Images"+fnm+".png")
+    result['result'] = True
 
 sys.stdout.write(json.dumps(result, indent=1))
 sys.stdout.write("\n")
