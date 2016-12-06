@@ -1,0 +1,26 @@
+iframe {
+        margin: 0;
+        margin-left: 10;
+        padding: 0;
+        border: none;
+        border-left: 5px solid #333;
+        width: 400px;
+        height: 1000px;
+       float: right;
+       font-family: sans-serif;
+  
+
+
+}
+
+        body {
+        font-family: sans-serif;
+
+        }
+
+        h1, hr {
+      font-size: 26px;
+      font-family: Impact, sans-serif;
+      color: #5f9ea0;
+    
+        }
