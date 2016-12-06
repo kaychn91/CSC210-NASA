@@ -144,7 +144,7 @@
 						datatype: "application/json",
 						type: "get",
 						success: function(response){
-							$('#contentpage').contents().find(".bod").text("");
+							$('#contentpage').contents().find("body").find(".bod").text("");
 							$.each(response.result, function(index,value) {
 								var articleID = value[0];
 								var  articleTitle = value[1];
@@ -165,13 +165,14 @@
 			}
 			
 			function recentarticles(){
+				if(sessionStorage.navlink == "home_articles.html"){
 				$.ajax({
 						url: "cgi-bin/ArticleData.py",
 						data: {fnc: "recent"},
 						datatype: "application/json",
 						type: "get",
 						success: function(response){
-							$('#contentpage').contents().find("body").find(".fas").text("");
+							$('#contentpage').contents().find("body").find(".bod").text("");
 							$.each(response.result, function(index,value) {
 								var articleID = value[0];
 								var  articleTitle = value[1];
@@ -184,9 +185,10 @@
 							alert("fetch error");
 						}
 					});
+				}
 			}
 			function DisplayAllArticles(articleID,articleTitle,articleText){
-				var iframebody = $('#contentpage').contents().find(".bod");				
+				var iframebody = $('#contentpage').contents().find("body").find(".bod");				
 				iframebody.append("<p style='font-weight:bold'>"+articleTitle+":");
 				//iframebody.append(articleText + " <a onclick='parent.ShowArticle("+ articleID + ")'>Read More</a></p>");
 				iframebody.append(articleText + "<a style='color:blue' onclick ='parent.changepage("+articleID+")'> Read More </a></p>");
