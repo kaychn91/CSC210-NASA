@@ -109,6 +109,18 @@ def getRecent():
     else:
         return False
 
+def userAs(username):
+    conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
+    c = conn.cursor()
+    cmd = "SELECT ArticleID,Title FROM Articles WHERE username=%s LIMIT 10"
+    c.execute(cmd, (username,))
+    results = c.fetchall()
+    conn.close()
+    if len(results)>0:
+        return results
+    else:
+        return False
+
 def delete(aid):
     conn = mdb.connect(db='csc210',host='localhost',user='root',passwd='mysql')
     c = conn.cursor()
