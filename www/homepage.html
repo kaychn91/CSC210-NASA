@@ -9,9 +9,11 @@
 		<script>
 		
 			$(document).ready(function(){
-				$("#contentpage").prop('src',sessionStorage.navlink);
+				if(sessionStorage.navlink != undefined){
+					$("#contentpage").prop('src',sessionStorage.navlink);
+				}
 				$("#contentpage").attr('data-console',sessionStorage.contentconsole);
-				recentarticles();
+				
 				var loggedin = "";
 				loggedin = getCookie();
 				if(loggedin == "")
@@ -136,6 +138,9 @@
 			}
 			function fetcharticles(){
 				console = $('#contentpage').attr('data-console');
+				if(sessionStorage.navlink == undefined || sessionStorage.navlink == 'home_articles.html'){
+					recentarticles();
+				}
 				if(console!="" && console!="article")
 				{
 					$.ajax({
@@ -165,8 +170,8 @@
 			}
 			
 			function recentarticles(){
-				if(sessionStorage.navlink == "home_articles.html"){
-				$.ajax({
+				if(sessionStorage.navlink == undefined || sessionStorage.navlink == 'home_articles.html'){
+					$.ajax({
 						url: "cgi-bin/ArticleData.py",
 						data: {fnc: "recent"},
 						datatype: "application/json",
