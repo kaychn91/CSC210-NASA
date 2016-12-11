@@ -178,12 +178,12 @@ elif fnc == 'getAs':
 elif fnc =='recent':
     result['result']=getRecent()
 elif fnc == 'del':
-    aid = verify_user['aid'].value
-    ims = delete(aid)
-    for index in ims:
-        fnm=ims[index]
-        os.remove("C:\Program Files (x86)\Ampps\www\Article-Images"+fnm+".png")
-    result['result'] = True
+	aid = verify_user['aid'].value
+	ims = delete(aid)
+	for index in ims:
+		#fnm=ims[index]
+		os.remove("F:/Web-Dev-Class/www/Article-Images/"+str(index[0])+".png")
+	result['result'] = True
 
 sys.stdout.write(json.dumps(result, indent=1))
 sys.stdout.write("\n")

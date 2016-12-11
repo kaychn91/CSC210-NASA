@@ -30,6 +30,7 @@
 								//show comments
 								show_comments();
 								$("#TAComment").val("");
+								parent.resizeIframe(1);
 							},
 							error: function(response){
 								alert("error in inserting comments");
@@ -63,12 +64,14 @@
 									var comments_html = '<br>'+username+':<br><textarea id="' + commentid + ' rows="10" cols="50" disabled="true" style="resize: none;">'+comment_text+'</textarea><br>'
 									$("#comments_area").append(comments_html);
 								}
+								parent.resizeIframe(1);
 							});
 						},
 						error: function(response){
 							alert("alert getting comments in python script")
 						}
 					});
+					parent.resizeIframe(1);
 				}
 				show_comments();
 				ShowArticle(articleid);	
