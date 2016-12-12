@@ -138,7 +138,7 @@ def delete(aid):
     if len(results)>0:
         return results
     else:
-        return False
+        return []
 		
 cgitb.enable()
 
